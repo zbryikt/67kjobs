@@ -22,22 +22,24 @@ x$.controller('index', function($scope, $timeout, $firebase){
   $scope.jobtypes = jobtypes;
   $scope.needfix = false;
   $scope.newjob = {};
-  $scope.newjob = {
-    title: '測試職稱',
-    jobtype: {
-      id: 'test',
-      name: 'test'
-    },
-    jobname: {
-      id: 'test',
-      name: 'test'
-    },
-    salary1: 67000,
-    salary2: 68000,
-    location: '台北市',
-    company: '市北台',
-    email: 'blah@blah.io'
-  };
+  if (false) {
+    $scope.newjob = {
+      title: '測試職稱',
+      jobtype: {
+        id: 'test',
+        name: 'test'
+      },
+      jobname: {
+        id: 'test',
+        name: 'test'
+      },
+      salary1: 67000,
+      salary2: 68000,
+      location: '台北市',
+      company: '市北台',
+      email: 'blah@blah.io'
+    };
+  }
   $scope.jobtype = "";
   $scope.jobs = [];
   $scope.$watch('newjob.jobtype', function(v){

@@ -11,7 +11,7 @@ angular.module \jobs, <[firebase]>
     $scope.jobtypes = jobtypes
     $scope.needfix = false
     $scope.newjob = {}
-    $scope.newjob = do
+    if false => $scope.newjob = do
       title: \測試職稱
       jobtype: id: \test, name: \test
       jobname: id: \test, name: \test
