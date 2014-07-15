@@ -1,0 +1,48 @@
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+=transition($arg1, $arg2)
+  -ms-transition: $arg1, $arg2
+  -moz-transition: $arg1, $arg2
+  -webkit-transition: $arg1, $arg2
+  -o-transition: $arg1, $arg2
+  transition: $arg1, $arg2
+
+=transform($arg)
+  -ms-transform: $arg
+  -moz-transform: $arg
+  -webkit-transform: $arg
+  -o-transform: $arg
+  transform: $arg
+
+=animation($arg)
+  -ms-animation: $arg
+  -moz-animation: $arg
+  -webkit-animation: $arg
+  -o-animation: $arg
+  animation: $arg
+
+=animation-delay($arg)
+  -ms-animation-delay: $arg
+  -moz-animation-delay: $arg
+  -webkit-animation-delay: $arg
+  -o-animation-delay: $arg
+  animation-delay: $arg
+
+uiload
+  display: inline-block
+  position: relative
+  //width: 100px
+  //height: 100px
+  //margin: 30px
+  & > div
+    position: relative
+  //  width: 100px
+  //  height: 100px

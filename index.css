@@ -1,0 +1,277 @@
+uiload {
+  display: inline-block;
+  position: relative; }
+  uiload > div {
+    position: relative; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; }
+
+.glyphicon {
+  vertical-align: text-top; }
+
+#root {
+  margin-top: 0;
+  width: 100%;
+  height: 100%; }
+
+#content {
+  margin: 0 20px 20px;
+  padding-top: 20px; }
+
+.navbar-brand {
+  padding: 2px 20px; }
+
+.quote {
+  font-size: 3em;
+  text-align: center; }
+  .quote .small {
+    font-size: 0.5em;
+    margin-right: 10%; }
+
+#new-job {
+  width: 70%;
+  margin: auto; }
+
+.needfix .ng-invalid {
+  border-color: #ff3311; }
+
+#joblist {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1.3em; }
+
+.job .cell {
+  display: inline-block; }
+.job .title {
+  width: 300px; }
+.job .jobname {
+  width: 150px; }
+.job .loc {
+  width: 150px; }
+.job .salary {
+  width: 200px; }
+.job .company {
+  width: 200px; }
+
+.list-group-item.head {
+  background: #444444;
+  color: white; }
+
+@-webkit-keyframes carousel {
+  0% {
+    opacity: 0; }
+
+  16% {
+    opacity: 0; }
+
+  33% {
+    opacity: 1; }
+
+  66% {
+    opacity: 1; }
+
+  83% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes carousel {
+  0% {
+    opacity: 0; }
+
+  16% {
+    opacity: 0; }
+
+  33% {
+    opacity: 1; }
+
+  66% {
+    opacity: 1; }
+
+  83% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@-ms-keyframes carousel {
+  0% {
+    opacity: 0; }
+
+  16% {
+    opacity: 0; }
+
+  33% {
+    opacity: 1; }
+
+  66% {
+    opacity: 1; }
+
+  83% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@keyframes carousel {
+  0% {
+    opacity: 0; }
+
+  16% {
+    opacity: 0; }
+
+  33% {
+    opacity: 1; }
+
+  66% {
+    opacity: 1; }
+
+  83% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+#pre-content {
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-bottom: 5px solid #cc4422; }
+
+#banner {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+  position: relative; }
+
+.cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  z-index: 10; }
+  .cover .ib {
+    padding-top: 10%; }
+  .cover .title {
+    font-size: 4em;
+    font-weight: 900;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 4%;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5); }
+  .cover .desc {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: white;
+    padding: 1% 10% 1% 1%;
+    margin-top: 5px;
+    text-align: right;
+    text-shadow: 0 0 4px black; }
+
+#cover1 {
+  -ms-animation: carousel 18s infinite linear;
+  -moz-animation: carousel 18s infinite linear;
+  -webkit-animation: carousel 18s infinite linear;
+  -o-animation: carousel 18s infinite linear;
+  animation: carousel 18s infinite linear;
+  -ms-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s; }
+
+#cover2 {
+  -ms-animation: carousel 18s infinite linear;
+  -moz-animation: carousel 18s infinite linear;
+  -webkit-animation: carousel 18s infinite linear;
+  -o-animation: carousel 18s infinite linear;
+  animation: carousel 18s infinite linear;
+  -ms-animation-delay: 6s;
+  -moz-animation-delay: 6s;
+  -webkit-animation-delay: 6s;
+  -o-animation-delay: 6s;
+  animation-delay: 6s; }
+
+#cover3 {
+  -ms-animation: carousel 18s infinite linear;
+  -moz-animation: carousel 18s infinite linear;
+  -webkit-animation: carousel 18s infinite linear;
+  -o-animation: carousel 18s infinite linear;
+  animation: carousel 18s infinite linear;
+  -ms-animation-delay: 12s;
+  -moz-animation-delay: 12s;
+  -webkit-animation-delay: 12s;
+  -o-animation-delay: 12s;
+  animation-delay: 12s; }
+
+#cover4 {
+  z-index: 1; }
+
+#logo {
+  width: 400px;
+  height: 300px;
+  position: absolute;
+  top: 5%;
+  right: 300px;
+  z-index: 11;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; }
+
+@media (max-width: 1200px) {
+  #logo {
+    width: 300px;
+    height: 225px;
+    right: 100px; } }
+@media (max-width: 1000px) {
+  #logo {
+    top: 10%;
+    width: 200px;
+    height: 150px;
+    right: 75px; } }
+#aboutus {
+  width: 80%;
+  margin: auto;
+  font-size: 1.3em; }
+  #aboutus h3 {
+    margin-left: -40px; }
+
+#footer {
+  margin-top: 50px;
+  padding: 10px 100px;
+  background: #444444;
+  color: #eeeeee;
+  text-align: right; }
+
+hr.color {
+  border: none;
+  height: 0;
+  border-bottom: 10px solid black; }
+  hr.color.red {
+    border-color: #ff2211; }
+  hr.color.orange {
+    border-color: #ffbb44; }
+  hr.color.green {
+    border-color: #99cc44; }
+  hr.color.blue {
+    border-color: #4499cc; }
+
+.red {
+  color: #ff2211; }
+
+.orange {
+  color: #ffbb44; }
+
+.green {
+  color: #99cc44; }
+
+.blue {
+  color: #4499cc; }

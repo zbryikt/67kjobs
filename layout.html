@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/3.0.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="assets/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="//cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+    <script type="text/javascript" src="jobs.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body ng-app="jobs">
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container-fluid"><a href="#" class="navbar-brand"><img src="img/logo-mini.png"></a></div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#">關於我們</a></li>
+          <li><a href="#list-job">職缺列表</a></li>
+          <li><a href="#post-job">刊登職缺</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="#" class="disabled">登入</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="root">
+      <div id="pre-content">
+      </div>
+      <div id="content">
+      </div>
+      <div id="footer">
+      </div>
+    </div>
+  </body>
+</html>

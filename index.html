@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/3.0.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="assets/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="//cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+    <script type="text/javascript" src="jobs.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body ng-app="jobs">
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container-fluid"><a href="#" class="navbar-brand"><img src="img/logo-mini.png"></a></div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#">關於我們</a></li>
+          <li><a href="#list-job">職缺列表</a></li>
+          <li><a href="#post-job">刊登職缺</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="#" class="disabled">登入</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="root">
+      <div id="pre-content">
+        <div id="banner">
+          <div id="logo" delay-bk="img/logo.png"></div>
+          <div id="cover5" delay-bk="img/cover/2.jpg" class="cover">
+            <div class="ib">
+              <div class="title">你值得更好的工作</div>
+              <div class="desc">難道你的人生就值這點錢嗎？難道你非得要鞠躬哈腰、口是心非嗎？跳槽的時候到了。<br>你可以在這裡找到待遇更好的工作，我們專注於提供薪資至少六萬七的職缺資訊，讓你不再需要為了微薄的薪水折腰。</div>
+            </div>
+          </div>
+          <div id="cover1" delay-bk="img/cover/1.jpg" class="cover">
+            <div class="ib">
+              <div class="title">前途茫茫、感到迷惘嗎？</div>
+              <div class="desc">迷惘是人之常情，但你必須要力圖改變。<br>你可以在這裡找到待遇更好的工作，我們專注於提供薪資至少六萬七的職缺資訊，讓你不再需要為了微薄的薪水折腰。</div>
+            </div>
+          </div>
+          <div id="cover2" delay-bk="img/cover/3.jpg" class="cover">
+            <div class="ib">
+              <div class="title">不要再委屈自己了</div>
+              <div class="desc">委身在茅廬之中，等待別人發現嗎？不要做21世紀的臥龍，機會永遠都只留給自己爭取的人。<br>你可以在這裡找到待遇更好的工作，我們專注於提供薪資至少六萬七的職缺資訊，讓你不再需要為了微薄的薪水折腰。</div>
+            </div>
+          </div>
+          <div id="cover3" delay-bk="img/cover/4.jpg" class="cover">
+            <div class="ib">
+              <div class="title">你有多久沒有好好休息了？</div>
+              <div class="desc">人生就只有賺錢嗎？如果你的待遇不夠好，那你連思考這個問題的時間都沒有。<br>你可以在這裡找到待遇更好的工作，我們專注於提供薪資至少六萬七的職缺資訊，讓你不再需要為了微薄的薪水折腰。</div>
+            </div>
+          </div>
+          <div id="cover4" delay-bk="img/cover/2.jpg" class="cover">
+            <div class="ib">
+              <div class="title">你值得更好的工作</div>
+              <div class="desc">難道你的人生就值這點錢嗎？難道你非得要鞠躬哈腰、口是心非嗎？跳槽的時候到了。<br>你可以在這裡找到待遇更好的工作，我們專注於提供薪資至少六萬七的職缺資訊，讓你不再需要為了微薄的薪水折腰。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <blockquote class="quote">“ You Deserve Better. “
+          <div id="list-job"></div>
+          <div class="small text-right">- 67k jobs platform </div>
+        </blockquote><br>
+        <div id="index" ng-controller="index">
+          <hr class="color orange"><br>
+          <div id="joblist">
+            <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表</h3>
+            <div class="list-group">
+              <div class="list-group-item head">
+                <div class="job">
+                  <div class="cell title">職稱</div>
+                  <div class="cell jobname">職業類型</div>
+                  <div class="cell loc">工作地點</div>
+                  <div class="cell salary">薪資範圍</div>
+                  <div class="cell company">公司名稱</div>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <div ng-repeat="job in joblist" class="job">
+                  <div class="cell title">{{job.title}}</div>
+                  <div class="cell jobname">{{job.jobname.name}}</div>
+                  <div class="cell loc">{{job.location}}</div>
+                  <div class="cell salary">{{job.salary1}} ~ {{job.salary2}}</div>
+                  <div class="cell company"><a href="{{job.url}}">{{job.company}}</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="post-job"></div><br><br>
+          <hr class="color green"><br>
+          <form id="new-job" name="newjobform" novalidate ng-class="{'needfix':needfix}">
+            <h3><i class="glyphicon glyphicon-edit green"></i> 建立職缺</h3>
+            <div class="small">任何刊登在此平台的職缺都必須要提供薪資範圍，並且最低值要高於六萬七千元 (新台幣)</div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>職缺 / 頭銜</h4>
+              </div>
+              <div class="col-sm-9">
+                <input name="title" type="text" ng-model="newjob.title" placeholder="例如，執行副理、保險業務助理、資深任體工程師等等" required min-length="3" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>職業別</h4>
+              </div>
+              <div class="col-sm-9">
+                <select name="jobtype" ng-model="newjob.jobtype" ng-options="type.name for type in jobtypes" required class="form-control"></select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>職業名</h4>
+              </div>
+              <div class="col-sm-9">
+                <select name="jobname" ng-model="newjob.jobname" ng-options="job.name for job in jobs" required class="form-control"></select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>薪水範圍</h4>
+              </div>
+              <div class="col-sm-9 form-inline">
+                <div class="form-group">
+                  <input name="salary1" type="text" ng-model="newjob.salary1" placeholder="最低值，至少六萬七" required class="form-control">
+                </div> 至
+                <div class="form-group">
+                  <input name="salary2" type="number" ng-model="newjob.salary2" placeholder="最高值，如：990000" required class="form-control">
+                </div><br> (單位: 新台幣)
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>工作地點</h4>
+              </div>
+              <div class="col-sm-9">
+                <input name="location" type="text" ng-model="newjob.location" placeholder="例如：台北市、上海" required class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>工作內容</h4>
+              </div>
+              <div class="col-sm-9">
+                <textarea name="desc" ng-model="newjob.desc" placeholder="請詳加描述你提供的職缺其工作內容跟需求(純文字排版)" style="min-height: 200px" class="form-control"></textarea>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>公司名稱</h4>
+              </div>
+              <div class="col-sm-9">
+                <input name="company" type="text" ng-model="newjob.company" placeholder="例如：跑得慢股份有限公司" required class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>公司網址</h4>
+              </div>
+              <div class="col-sm-9">
+                <input name="url" type="text" ng-model="newjob.url" placeholder="例如：http://runsoslow.io" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>電子郵件</h4>
+              </div>
+              <div class="col-sm-9">
+                <input name="email" type="email" ng-model="newjob.email" placeholder="hr@runsoslow.io" required class="form-control">
+                <div class="small">( 收履歷用 )</div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <div ng-show="needfix" class="alert alert-warning">表單有些問題，請改一改再送出</div>
+              </div>
+              <div class="col-sm-9">
+                <div ng-click="submit()" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>
+              </div>
+            </div>
+          </form><br>
+          <hr class="color blue"><br>
+          <div id="aboutus">
+            <h3><img src="img/g0v.gif"> 關於我們</h3><br>
+            <p>所以你是說你的薪水不夠高。</p><br>
+            <p>你有考慮過到國外工作嗎？不不不，人不用到國外。比方說 <a href="http://jobmote.com/">JOBMOTE</a> 這個網站提供了不少遠距工作的職缺，像是 <a href="http://jobmote.com/job/6451-mean-javascript-master">這一個職缺</a> 所需的技能差不多就只是架設這一個平台所需的技能而已。別忘了也參考一下<a href="http://www.flexjobs.com/">Flexjobs</a> 這一個網站，看看他的標題：</p>
+            <blockquote>Life is flexible... is your job?</blockquote>
+            <p>我想這個問題必須要由你自己來回答。</p><br>
+            <p>這個平台的建立是啟發自<a href="http://66kjobs.tw">66kjobs</a>，據說開發者使用 Ruby 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下，決定為了節省時間，連後端都不開發了，純粹撰寫前端程式碼，使用簡潔的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase 稍微兜兜兜，咦！才兩個多小時，我已經開始在寫「關於我們」了，其中一個小時還是在爬取職業列表以及挑選首頁用的照片呢，就只差 inside jobs 爬蟲還沒寫了，不過我傾向去爬批踢踢的 job / tech-job / soft-job / part-time 各板，反正 <a href="http://github.com/zbryikt/ptt-crawler">批踢踢爬蟲程式</a> 以前就已經寫過了，只差文章 parser 而已。</p><br>
+            <p>67kjobs 後端接的是 firebase ，權限控制上還有點問題，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。</p><br>
+            <p>所有程式碼皆放在 <a href="http://github.com/zbryikt/67kjobs">github repo</a> ，歡迎自己拿去參考。</p>
+            <div class="text-right">tkirby @ 2014.07.15</div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">&copy; 2014 67kjobs inc. all right reserved. 
+        <div class="badge">beta</div>
+      </div>
+    </div>
+  </body>
+</html>
