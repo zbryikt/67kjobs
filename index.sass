@@ -109,14 +109,18 @@ html,body
 @include keyframes(carousel)
   0%
     opacity: 0
-  16%
+  7%
     opacity: 0
-  33%
+  20%
+    opacity: 0
+  25%
     opacity: 1
-  66%
+  50%
     opacity: 1
-  83%
-    opacity: 1
+  55%
+    opacity: 0
+  75%
+    opacity: 0
   100%
     opacity: 0
 
@@ -170,14 +174,17 @@ html,body
     font-size: 1.2em
 
 #cover1
-  @include animation(carousel 18s infinite linear)
+  @include animation(carousel 20s infinite linear)
   @include animation-delay(0s)
 #cover2
-  @include animation(carousel 18s infinite linear)
-  @include animation-delay(6s)
+  @include animation(carousel 20s infinite linear)
+  @include animation-delay(5s)
 #cover3
-  @include animation(carousel 18s infinite linear)
-  @include animation-delay(12s)
+  @include animation(carousel 20s infinite linear)
+  @include animation-delay(10s)
+#cover3
+  @include animation(carousel 20s infinite linear)
+  @include animation-delay(15s)
 #cover4
   z-index: 1
 

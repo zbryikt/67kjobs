@@ -114,17 +114,23 @@ html, body {
   0% {
     opacity: 0; }
 
-  16% {
+  7% {
     opacity: 0; }
 
-  33% {
+  20% {
+    opacity: 0; }
+
+  25% {
     opacity: 1; }
 
-  66% {
+  50% {
     opacity: 1; }
 
-  83% {
-    opacity: 1; }
+  55% {
+    opacity: 0; }
+
+  75% {
+    opacity: 0; }
 
   100% {
     opacity: 0; } }
@@ -133,17 +139,23 @@ html, body {
   0% {
     opacity: 0; }
 
-  16% {
+  7% {
     opacity: 0; }
 
-  33% {
+  20% {
+    opacity: 0; }
+
+  25% {
     opacity: 1; }
 
-  66% {
+  50% {
     opacity: 1; }
 
-  83% {
-    opacity: 1; }
+  55% {
+    opacity: 0; }
+
+  75% {
+    opacity: 0; }
 
   100% {
     opacity: 0; } }
@@ -152,17 +164,23 @@ html, body {
   0% {
     opacity: 0; }
 
-  16% {
+  7% {
     opacity: 0; }
 
-  33% {
+  20% {
+    opacity: 0; }
+
+  25% {
     opacity: 1; }
 
-  66% {
+  50% {
     opacity: 1; }
 
-  83% {
-    opacity: 1; }
+  55% {
+    opacity: 0; }
+
+  75% {
+    opacity: 0; }
 
   100% {
     opacity: 0; } }
@@ -171,17 +189,23 @@ html, body {
   0% {
     opacity: 0; }
 
-  16% {
+  7% {
     opacity: 0; }
 
-  33% {
+  20% {
+    opacity: 0; }
+
+  25% {
     opacity: 1; }
 
-  66% {
+  50% {
     opacity: 1; }
 
-  83% {
-    opacity: 1; }
+  55% {
+    opacity: 0; }
+
+  75% {
+    opacity: 0; }
 
   100% {
     opacity: 0; } }
@@ -245,11 +269,11 @@ html, body {
   .cover .desc {
     font-size: 1.2em; } }
 #cover1 {
-  -ms-animation: carousel 18s infinite linear;
-  -moz-animation: carousel 18s infinite linear;
-  -webkit-animation: carousel 18s infinite linear;
-  -o-animation: carousel 18s infinite linear;
-  animation: carousel 18s infinite linear;
+  -ms-animation: carousel 20s infinite linear;
+  -moz-animation: carousel 20s infinite linear;
+  -webkit-animation: carousel 20s infinite linear;
+  -o-animation: carousel 20s infinite linear;
+  animation: carousel 20s infinite linear;
   -ms-animation-delay: 0s;
   -moz-animation-delay: 0s;
   -webkit-animation-delay: 0s;
@@ -257,28 +281,40 @@ html, body {
   animation-delay: 0s; }
 
 #cover2 {
-  -ms-animation: carousel 18s infinite linear;
-  -moz-animation: carousel 18s infinite linear;
-  -webkit-animation: carousel 18s infinite linear;
-  -o-animation: carousel 18s infinite linear;
-  animation: carousel 18s infinite linear;
-  -ms-animation-delay: 6s;
-  -moz-animation-delay: 6s;
-  -webkit-animation-delay: 6s;
-  -o-animation-delay: 6s;
-  animation-delay: 6s; }
+  -ms-animation: carousel 20s infinite linear;
+  -moz-animation: carousel 20s infinite linear;
+  -webkit-animation: carousel 20s infinite linear;
+  -o-animation: carousel 20s infinite linear;
+  animation: carousel 20s infinite linear;
+  -ms-animation-delay: 5s;
+  -moz-animation-delay: 5s;
+  -webkit-animation-delay: 5s;
+  -o-animation-delay: 5s;
+  animation-delay: 5s; }
 
 #cover3 {
-  -ms-animation: carousel 18s infinite linear;
-  -moz-animation: carousel 18s infinite linear;
-  -webkit-animation: carousel 18s infinite linear;
-  -o-animation: carousel 18s infinite linear;
-  animation: carousel 18s infinite linear;
-  -ms-animation-delay: 12s;
-  -moz-animation-delay: 12s;
-  -webkit-animation-delay: 12s;
-  -o-animation-delay: 12s;
-  animation-delay: 12s; }
+  -ms-animation: carousel 20s infinite linear;
+  -moz-animation: carousel 20s infinite linear;
+  -webkit-animation: carousel 20s infinite linear;
+  -o-animation: carousel 20s infinite linear;
+  animation: carousel 20s infinite linear;
+  -ms-animation-delay: 10s;
+  -moz-animation-delay: 10s;
+  -webkit-animation-delay: 10s;
+  -o-animation-delay: 10s;
+  animation-delay: 10s; }
+
+#cover3 {
+  -ms-animation: carousel 20s infinite linear;
+  -moz-animation: carousel 20s infinite linear;
+  -webkit-animation: carousel 20s infinite linear;
+  -o-animation: carousel 20s infinite linear;
+  animation: carousel 20s infinite linear;
+  -ms-animation-delay: 15s;
+  -moz-animation-delay: 15s;
+  -webkit-animation-delay: 15s;
+  -o-animation-delay: 15s;
+  animation-delay: 15s; }
 
 #cover4 {
   z-index: 1; }
