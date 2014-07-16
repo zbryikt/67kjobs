@@ -154,6 +154,7 @@ x$.controller('index', function($scope, $timeout, $firebase){
     $scope.newjob = {};
     $scope.needfix = false;
     console.log("job added");
+    $scope.waitreload = true;
     return setTimeout(function(){
       return window.location.reload();
     }, 1000);

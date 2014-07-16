@@ -91,4 +91,5 @@ angular.module \jobs, <[firebase]>
       $scope.newjob = {}
       $scope.needfix = false
       console.log "job added"
+      $scope.waitreload = true
       setTimeout (-> window.location.reload!), 1000

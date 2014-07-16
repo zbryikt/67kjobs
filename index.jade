@@ -227,7 +227,7 @@ block content
         .col-sm-3
           .alert.alert-warning(ng-show="needfix") 表單有些問題，請修正再送出
         .col-sm-9
-          .btn.btn-success.btn-rad.btn-block.btn-lg(ng-show="user",ng-click="submit()") 刊登求才啟示
+          .btn.btn-success.btn-rad.btn-block.btn-lg(ng-show="user",ng-click="submit()",ng-disabled="waitreload") 刊登求才啟示
           .btn.btn-warning.btn-rad.btn-block.btn-lg(ng-show="!user",ng-click="login()") 按此登入後即可刊登
     br
     hr.color.blue

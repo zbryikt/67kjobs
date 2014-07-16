@@ -280,7 +280,7 @@
                 <div ng-show="needfix" class="alert alert-warning">表單有些問題，請修正再送出</div>
               </div>
               <div class="col-sm-9">
-                <div ng-show="user" ng-click="submit()" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>
+                <div ng-show="user" ng-click="submit()" ng-disabled="waitreload" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>
                 <div ng-show="!user" ng-click="login()" class="btn btn-warning btn-rad btn-block btn-lg">按此登入後即可刊登</div>
               </div>
             </div>
