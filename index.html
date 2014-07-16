@@ -87,7 +87,11 @@
         <div id="index">
           <hr class="color orange"><br>
           <div id="joblist">
-            <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表</h3>
+            <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表
+              <select ng-model="jobtab" ng-options="type.name for type in jobtypes">
+                <option value="">全部</option>
+              </select>
+            </h3>
             <div class="list-group">
               <div class="list-group-item head">
                 <div class="job">
@@ -99,8 +103,18 @@
                   <div class="cell user">刊登者</div>
                 </div>
               </div>
-              <div class="list-group-item">
+              <div ng-show="!jobtab" class="list-group-item">
                 <div ng-repeat="job in joblist" class="job">
+                  <div class="cell title">{{job.title}}</div>
+                  <div class="cell jobname">{{job.jobname.name}}</div>
+                  <div class="cell loc">{{job.location}}</div>
+                  <div class="cell salary">{{job.salary1}} ~ {{job.salary2}}</div>
+                  <div class="cell company"><a href="{{job.url}}">{{job.company}}</a></div>
+                  <div class="cell user">{{job.owner.name}}</div>
+                </div>
+              </div>
+              <div ng-show="jobtab" class="list-group-item">
+                <div ng-repeat="job in data[jobtab.id]" class="job">
                   <div class="cell title">{{job.title}}</div>
                   <div class="cell jobname">{{job.jobname.name}}</div>
                   <div class="cell loc">{{job.location}}</div>
@@ -130,7 +144,9 @@
                 <h4>職業別</h4>
               </div>
               <div class="col-sm-9">
-                <select name="jobtype" ng-model="newjob.jobtype" ng-options="type.name for type in jobtypes" required class="form-control"></select>
+                <select name="jobtype" ng-model="newjob.jobtype" ng-options="type.name for type in jobtypes" required class="form-control">
+                  <option value="">請選取</option>
+                </select>
               </div>
             </div>
             <div class="row">
@@ -138,7 +154,9 @@
                 <h4>職業名</h4>
               </div>
               <div class="col-sm-9">
-                <select name="jobname" ng-model="newjob.jobname" ng-options="job.name for job in jobs" required class="form-control"></select>
+                <select name="jobname" ng-model="newjob.jobname" ng-options="job.name for job in jobs" required class="form-control">
+                  <option value="">請選取</option>
+                </select>
               </div>
             </div>
             <div class="row">

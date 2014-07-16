@@ -25,14 +25,8 @@ x$.controller('index', function($scope, $timeout, $firebase){
   if (true) {
     $scope.newjob = {
       title: '測試職稱',
-      jobtype: {
-        id: 'test',
-        name: 'test'
-      },
-      jobname: {
-        id: 'test',
-        name: 'test'
-      },
+      jobtype: null,
+      jobname: null,
       salary1: 67000,
       salary2: 68000,
       location: '台北市',
@@ -49,9 +43,31 @@ x$.controller('index', function($scope, $timeout, $firebase){
       return console.log($scope.newjob.jobtype.jobs);
     }
   });
-  $scope.dbRef = new Firebase('https://joblist.firebaseio.com/jobs');
-  $scope.listsrc = $firebase($scope.dbRef);
-  $scope.auth = new FirebaseSimpleLogin($scope.dbRef, function(e, u){
+  $scope.dbRef = {
+    date: new Firebase('https://joblist.firebaseio.com/jobs')
+  };
+  $scope.datasrc = {
+    date: $firebase($scope.dbRef.date),
+    get: function(arg$){
+      var id, name;
+      id = arg$.id, name = arg$.name;
+      if (!this[name]) {
+        if (!$scope.dbRef[name]) {
+          $scope.dbRef[name] = new Firebase("https://joblist.firebaseio.com/cat" + id);
+        }
+        this[name] = $firebase($scope.dbRef[name]);
+      }
+      this[name].$on('loaded', function(it){
+        return $scope.data[id] = it;
+      });
+      this[name].$on('change', function(it){
+        return $scope.data[id] = it;
+      });
+      return this[name];
+    }
+  };
+  $scope.data = {};
+  $scope.auth = new FirebaseSimpleLogin($scope.dbRef.date, function(e, u){
     return $scope.$apply(function(){
       return $scope.user = u;
     });
@@ -63,26 +79,28 @@ x$.controller('index', function($scope, $timeout, $firebase){
     return $scope.auth.logout();
   };
   $scope.joblist = [];
-  console.log($scope.listsrc);
   update = function(){
     var item, results$ = [];
     $scope.joblist = [];
-    for (item in $scope.listsrc) {
+    for (item in $scope.datasrc.date) {
       if (item.indexOf("$") !== 0) {
-        results$.push($scope.joblist.push($scope.listsrc[item]));
+        results$.push($scope.joblist.push($scope.datasrc.date[item]));
       }
     }
     return results$;
   };
-  $scope.listsrc.$on('loaded', function(){
+  $scope.datasrc.date.$on('loaded', function(){
     return update();
   });
-  $scope.listsrc.$on('change', function(){
+  $scope.datasrc.date.$on('change', function(){
     return update();
   });
-  /*$scope.joblist = [
-    {"company":"foundi.info","email":"hr@foundi.info","jobname":{"id":"0205","name":"裁石工、碎石工"},"jobtype":{"id":"02","jobs":[{"id":"0201","name":"冶金工程師"},{"id":"0202","name":"冶金技術員"},{"id":"0203","name":"採礦工程師"},{"id":"0204","name":"採礦技術員"},{"id":"0205","name":"裁石工、碎石工"},{"id":"0206","name":"裁石工及石雕工"},{"id":"0207","name":"熔爐操作工"},{"id":"0208","name":"爆破工"},{"id":"0209","name":"礦工、採石工"},{"id":"0210","name":"鑽井工"},{"id":"0211","name":"鑿岩工、採石工"}],"name":"採礦冶金職類"},"location":"台北市","salary":67000,"title":"軟體工程師"}
-  ]*/
+  $scope.$watch('jobtab', function(){
+    var src;
+    if ($scope.jobtab) {
+      return src = $scope.datasrc.get($scope.jobtab);
+    }
+  });
   return $scope.submit = function(){
     var check, t1, t2;
     check = ['jobname', 'salary2', 'salary1', 'company', 'email', 'jobtype', 'location', 'title'];
@@ -106,7 +124,8 @@ x$.controller('index', function($scope, $timeout, $firebase){
       id: $scope.user.id,
       name: $scope.user.displayName
     };
-    $scope.listsrc.$add($scope.newjob);
+    $scope.datasrc.date.$add($scope.newjob);
+    $scope.datasrc.get($scope.newjob.jobtype).$add($scope.newjob);
     $scope.newjob = {};
     $scope.needfix = false;
     return console.log("job added");

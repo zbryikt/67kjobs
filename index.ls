@@ -13,8 +13,8 @@ angular.module \jobs, <[firebase]>
     $scope.newjob = {}
     if true => $scope.newjob = do
       title: \測試職稱
-      jobtype: id: \test, name: \test
-      jobname: id: \test, name: \test
+      jobtype: null
+      jobname: null
       salary1: 67000
       salary2: 68000
       location: \台北市
@@ -26,22 +26,33 @@ angular.module \jobs, <[firebase]>
     $scope.$watch 'newjob.jobtype', (v) -> if $scope.newjob.jobtype =>
       $scope.jobs = $scope.newjob.jobtype.jobs
       console.log $scope.newjob.jobtype.jobs
-    $scope.db-ref = new Firebase \https://joblist.firebaseio.com/jobs
-    $scope.listsrc = $firebase $scope.db-ref
-    $scope.auth = new FirebaseSimpleLogin $scope.db-ref, (e,u) -> $scope.$apply -> $scope.user = u
+    $scope.db-ref = do
+      date: new Firebase \https://joblist.firebaseio.com/jobs
+    $scope.datasrc = do
+      date: $firebase $scope.db-ref.date
+      get: ({id, name})->
+        if !@[name] => 
+          if !$scope.db-ref[name] => $scope.db-ref[name] = new Firebase "https://joblist.firebaseio.com/cat#id"
+          @[name] = $firebase $scope.db-ref[name]
+        @[name].$on \loaded, -> $scope.data[id] = it
+        @[name].$on \change, -> $scope.data[id] = it
+        @[name]
+    $scope.data = {}
+
+    $scope.auth = new FirebaseSimpleLogin $scope.db-ref.date, (e,u) -> $scope.$apply -> $scope.user = u
     $scope.login = -> $scope.auth.login('facebook')
     $scope.logout = -> $scope.auth.logout()
     $scope.joblist = []
-    console.log $scope.listsrc
     update = ->
       $scope.joblist = []
-      for item of $scope.listsrc => if item.indexOf("$")!=0 => 
-        $scope.joblist.push $scope.listsrc[item]
-    $scope.listsrc.$on \loaded, -> update!
-    $scope.listsrc.$on \change, -> update!
-    /*$scope.joblist = [
-      {"company":"foundi.info","email":"hr@foundi.info","jobname":{"id":"0205","name":"裁石工、碎石工"},"jobtype":{"id":"02","jobs":[{"id":"0201","name":"冶金工程師"},{"id":"0202","name":"冶金技術員"},{"id":"0203","name":"採礦工程師"},{"id":"0204","name":"採礦技術員"},{"id":"0205","name":"裁石工、碎石工"},{"id":"0206","name":"裁石工及石雕工"},{"id":"0207","name":"熔爐操作工"},{"id":"0208","name":"爆破工"},{"id":"0209","name":"礦工、採石工"},{"id":"0210","name":"鑽井工"},{"id":"0211","name":"鑿岩工、採石工"}],"name":"採礦冶金職類"},"location":"台北市","salary":67000,"title":"軟體工程師"}
-    ]*/
+      for item of $scope.datasrc.date => if item.indexOf("$")!=0 => 
+        $scope.joblist.push $scope.datasrc.date[item]
+    $scope.datasrc.date.$on \loaded, -> update!
+    $scope.datasrc.date.$on \change, -> update!
+    $scope.$watch 'jobtab', -> if $scope.jobtab => 
+      src = $scope.datasrc.get $scope.jobtab
+
+
     $scope.submit = ->
       check = <[jobname salary2 salary1 company email jobtype location title]>
       t1 = $scope.newjobform.salary1
@@ -54,8 +65,12 @@ angular.module \jobs, <[firebase]>
         $scope.needfix = true
         return
       $scope.newjob.owner = {id: $scope.user.id, name: $scope.user.displayName}
-      $scope.listsrc.$add $scope.newjob
+      $scope.datasrc.date.$add $scope.newjob
+      $scope.datasrc.get($scope.newjob.jobtype).$add $scope.newjob
       $scope.newjob = {}
       $scope.needfix = false
       console.log "job added"
 
+    /*$scope.joblist = [
+      {"company":"foundi.info","email":"hr@foundi.info","jobname":{"id":"0205","name":"裁石工、碎石工"},"jobtype":{"id":"02","jobs":[{"id":"0201","name":"冶金工程師"},{"id":"0202","name":"冶金技術員"},{"id":"0203","name":"採礦工程師"},{"id":"0204","name":"採礦技術員"},{"id":"0205","name":"裁石工、碎石工"},{"id":"0206","name":"裁石工及石雕工"},{"id":"0207","name":"熔爐操作工"},{"id":"0208","name":"爆破工"},{"id":"0209","name":"礦工、採石工"},{"id":"0210","name":"鑽井工"},{"id":"0211","name":"鑿岩工、採石工"}],"name":"採礦冶金職類"},"location":"台北市","salary":67000,"title":"軟體工程師"}
+    ]*/

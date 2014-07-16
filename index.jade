@@ -50,6 +50,8 @@ block content
       h3
         i.glyphicon.glyphicon-list.orange
         |  職缺列表
+        select(ng-model="jobtab", ng-options="type.name for type in jobtypes")
+          option(value="") 全部
       .list-group
         .list-group-item.head
           .job
@@ -60,7 +62,7 @@ block content
             .cell.company 公司名稱
             .cell.user 刊登者
 
-        .list-group-item
+        .list-group-item(ng-show="!jobtab")
           .job(ng-repeat="job in joblist") 
             .cell.title {{job.title}}
             .cell.jobname {{job.jobname.name}}
@@ -69,6 +71,17 @@ block content
             .cell.company 
               a(href="{{job.url}}") {{job.company}}
             .cell.user {{job.owner.name}}
+
+        .list-group-item(ng-show="jobtab")
+          .job(ng-repeat="job in data[jobtab.id]") 
+            .cell.title {{job.title}}
+            .cell.jobname {{job.jobname.name}}
+            .cell.loc {{job.location}}
+            .cell.salary {{job.salary1}} ~ {{job.salary2}}
+            .cell.company 
+              a(href="{{job.url}}") {{job.company}}
+            .cell.user {{job.owner.name}}
+
     #post-job
     br
     br
@@ -90,11 +103,13 @@ block content
           h4 職業別
         .col-sm-9
           select.form-control(name="jobtype",ng-model="newjob.jobtype",ng-options="type.name for type in jobtypes",required)
+            option(value="") 請選取
       .row
         .col-sm-3.text-right
           h4 職業名
         .col-sm-9
           select.form-control(name="jobname",ng-model="newjob.jobname",ng-options="job.name for job in jobs",required)
+            option(value="") 請選取
       .row
         .col-sm-3.text-right
           h4 薪水範圍
