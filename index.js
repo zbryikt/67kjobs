@@ -153,6 +153,9 @@ x$.controller('index', function($scope, $timeout, $firebase){
     $scope.datasrc.get($scope.newjob.jobtype).$add($scope.newjob);
     $scope.newjob = {};
     $scope.needfix = false;
-    return console.log("job added");
+    console.log("job added");
+    return setTimeout(function(){
+      return window.location.reload();
+    }, 1000);
   };
 });
