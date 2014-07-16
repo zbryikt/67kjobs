@@ -385,4 +385,5 @@ hr.color {
   margin-left: 5px; }
 
 blockquote.pre {
-  white-space: pre; }
+  white-space: pre;
+  overflow-x: scroll; }
