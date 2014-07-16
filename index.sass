@@ -56,20 +56,51 @@ html,body
   margin: 0 auto
   font-size: 1.3em
 .job
+  font-size: 0.75em
+  margin-bottom: 10px
+  border-bottom: 1px dashed #eee
   .cell
     display: inline-block
+  .rank
+    width: 140px
   .title
     width: 300px
-  .jobname
-    width: 150px
-  .loc
-    width: 150px
-  .salary
-    width: 200px
-  .company
-    width: 150px
-  .company
-    width: 150px
+    font-size: 1.3em
+    & > a:hover
+      text-decoration: underline
+      cursor: pointer
+    .small
+      font-size: 0.5em
+      display: inline-block
+  .time
+    float: right
+    text-align: right
+    width: 120px
+    img
+      vertical-align: middle
+      width: 24px
+.head .job
+  margin-bottom: 0
+  border-bottom: none
+
+.ranker
+  background: #fff
+  border-radius: 5px
+  width: 16px
+  height: 16px
+  margin-right: 10px
+  vertical-align: middle
+  display: inline-block
+.ranker.blue
+  background: #14f
+.ranker.green
+  background: #291
+.ranker.yellow
+  background: #ff0
+.ranker.orange
+  background: #f92
+.ranker.red
+  background: #f41
 
 .list-group-item.head
   background: #444
@@ -100,6 +131,7 @@ html,body
   height: 100%
   margin-top: 50px
   position: relative
+  @include gradient(#BFBFBF, #4D4D4D)
 .cover
   position: absolute
   width: 100%
@@ -108,6 +140,10 @@ html,body
   background-position: center center
   background-size: cover
   z-index: 10
+  opacity: 0
+  @include transition(all 1s)
+  &.visible
+    opacity: 1
   .ib
     padding-top: 10%
   .title
@@ -125,6 +161,10 @@ html,body
     margin-top: 5px
     text-align: right
     text-shadow: 0 0 4px rgba(0,0,0,1)
+@media (max-width: 1000px)
+  .cover
+    .title
+      font-size: 3em
 
 #cover1
   @include animation(carousel 18s infinite linear)
@@ -143,7 +183,7 @@ html,body
   height: 300px
   position: absolute
   top: 5%
-  right: 300px
+  right: 6%
   z-index: 11
   background-repeat: no-repeat
   background-position: center center
@@ -196,3 +236,12 @@ hr.color
   color: #9c4
 .blue
   color: #49c
+
+.bonus
+  .checkbox
+    margin-right: 20px
+  .glyphicon
+    margin-left: 5px
+
+blockquote.pre
+  white-space: pre

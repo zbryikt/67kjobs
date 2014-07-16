@@ -8,12 +8,12 @@
   @keyframes #{$name}
     @content
 
-=transition($arg1, $arg2)
-  -ms-transition: $arg1, $arg2
-  -moz-transition: $arg1, $arg2
-  -webkit-transition: $arg1, $arg2
-  -o-transition: $arg1, $arg2
-  transition: $arg1, $arg2
+=transition($arg)
+  -ms-transition: $arg
+  -moz-transition: $arg
+  -webkit-transition: $arg
+  -o-transition: $arg
+  transition: $arg
 
 =transform($arg)
   -ms-transform: $arg
@@ -36,13 +36,9 @@
   -o-animation-delay: $arg
   animation-delay: $arg
 
-uiload
-  display: inline-block
-  position: relative
-  //width: 100px
-  //height: 100px
-  //margin: 30px
-  & > div
-    position: relative
-  //  width: 100px
-  //  height: 100px
+=gradient($arg1, $arg2)
+  background-image: -o-linear-gradient(bottom, $arg1 0%, $arg2 100%)
+  background-image: -moz-linear-gradient(bottom, $arg1 0%, $arg2 100%)
+  background-image: -webkit-linear-gradient(bottom, $arg1 0%, $arg2 100%)
+  background-image: -ms-linear-gradient(bottom, $arg1 0%, $arg2 100%)
+  background-image: linear-gradient(to bottom, $arg1 0%, $arg2 100%)

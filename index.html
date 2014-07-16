@@ -85,42 +85,61 @@
           <div class="small text-right">- 67k jobs platform </div>
         </blockquote><br>
         <div id="index">
+          <div id="job-detail-modal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4>{{curjob.title}} / {{curjob.company}}</h4>
+                </div>
+                <div class="modal-body"><i class="glyphicon glyphicon-calendar green"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope blue"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
+                  <hr>
+                  <h4 class="text-center">薪資待遇(月薪)</h4>
+                  <div class="row">
+                    <div style="width:80%;margin:auto" class="col-sm-12 text-center">
+                      <div class="btn btn-lg btn-block btn-danger text-center">{{curjob.salary1}}元 ~ {{curjob.salary2}}元</div>
+                      <div ng-show="curjob.signbonus" class="label label-primary"><i class="glyphicon glyphicon-usd"></i> 有簽約金</div>
+                      <div ng-show="curjob.techshare" class="label label-warning"><i class="glyphicon glyphicon-folder-close"></i> 有技術股</div>
+                      <div ng-show="curjob.stockright" class="label label-danger"><i class="glyphicon glyphicon-heart"></i> 員工可認股</div>
+                      <div ng-show="curjob.annualbonus" class="label label-success"><i class="glyphicon glyphicon-gift"></i> 年終獎金三個月以上</div>
+                    </div>
+                  </div><br>
+                  <hr>
+                  <h4>工作內容</h4>
+                  <blockquote class="pre">{{curjob.desc}}</blockquote>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <hr class="color orange"><br>
           <div id="joblist">
             <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表
-              <select ng-model="jobtab" ng-options="type.name for type in jobtypes">
+              <select ng-model="jobtab" ng-options="type.name for type in jobtypes" class="input-lg">
                 <option value="">全部</option>
               </select>
             </h3>
             <div class="list-group">
               <div class="list-group-item head">
                 <div class="job">
-                  <div class="cell title">職稱</div>
-                  <div class="cell jobname">職業類型</div>
-                  <div class="cell loc">工作地點</div>
-                  <div class="cell salary">薪資範圍</div>
-                  <div class="cell company">公司名稱</div>
-                  <div class="cell user">刊登者</div>
+                  <div class="cell rank">
+                    <div class="ranker"></div>薪資
+                  </div>
+                  <div class="cell title">職缺</div>
+                  <div class="cell time">刊登時間 <i class="glyphicon glyphicon-user"></i></div>
                 </div>
               </div>
-              <div ng-show="!jobtab" class="list-group-item">
-                <div ng-repeat="job in joblist" class="job">
-                  <div class="cell title">{{job.title}}</div>
-                  <div class="cell jobname">{{job.jobname.name}}</div>
-                  <div class="cell loc">{{job.location}}</div>
-                  <div class="cell salary">{{job.salary1}} ~ {{job.salary2}}</div>
-                  <div class="cell company"><a href="{{job.url}}">{{job.company}}</a></div>
-                  <div class="cell user">{{job.owner.name}}</div>
-                </div>
-              </div>
-              <div ng-show="jobtab" class="list-group-item">
-                <div ng-repeat="job in data[jobtab.id]" class="job">
-                  <div class="cell title">{{job.title}}</div>
-                  <div class="cell jobname">{{job.jobname.name}}</div>
-                  <div class="cell loc">{{job.location}}</div>
-                  <div class="cell salary">{{job.salary1}} ~ {{job.salary2}}</div>
-                  <div class="cell company"><a href="{{job.url}}">{{job.company}}</a></div>
-                  <div class="cell user">{{job.owner.name}}</div>
+              <div class="list-group-item">
+                <div ng-repeat="j in data[jobtab.id || 0]" class="job">
+                  <div class="cell rank">
+                    <div ng-class="{'blue':j[1].salary1&lt;70000,'green':j[1].salary1&gt;=70000 &amp;&amp; j[1].salary1&lt;80000,'yellow':j[1].salary1&gt;=80000 &amp;&amp; j[1].salary1&lt;100000,'orange':j[1].salary1&gt;=100000 &amp;&amp; j[1].salary1&lt;150000,'red':j[1].salary1&gt;=150000}" class="ranker"></div>{{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+                  </div>
+                  <div class="cell title"><a ng-click="detail(j[1])">{{j[1].title}}</a>
+                    <div class="small"> (  <a href="{{j[1].url}}">{{j[1].company}}</a> ) </div>
+                  </div>
+                  <div class="cell time">{{j[1].time|date:'yyyy-MM-dd'}} <img ng-if="j[1].owner.id" ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture"> <i ng-show="{{user.id=='10151905053907168'}}" ng-click="remove(j)" class="glyphicon glyphicon-remove red"></i></div>
                 </div>
               </div>
             </div>
@@ -161,7 +180,7 @@
             </div>
             <div class="row">
               <div class="col-sm-3 text-right">
-                <h4>薪水範圍</h4>
+                <h4>月薪範圍</h4>
               </div>
               <div class="col-sm-9 form-inline">
                 <div class="form-group">
@@ -172,6 +191,35 @@
                 </div><br> (單位: 新台幣)
               </div>
             </div><br>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>額外獎金</h4>
+              </div>
+              <div class="col-sm-9 form-inline bonus">
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="signbonus" ng-model="newjob.signbonus"><i class="glyphicon glyphicon-usd blue"></i> 簽約金 
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="techshare" ng-model="newjob.techshare"><i class="glyphicon glyphicon-folder-close orange"></i> 技術股 
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="stockright" ng-model="newjob.stockright"><i class="glyphicon glyphicon-heart red"></i> 員工認股 
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="annualbonus" ng-model="newjob.annualbonus"><i class="glyphicon glyphicon-gift green"></i> 三個月以上年終獎金 
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-sm-3 text-right">
                 <h4>工作地點</h4>
@@ -197,6 +245,14 @@
                 <input name="company" type="text" ng-model="newjob.company" placeholder="例如：跑得慢股份有限公司" required class="form-control">
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-3 text-right">
+                <h4>公司介紹</h4>
+              </div>
+              <div class="col-sm-9">
+                <textarea name="compdesc" ng-model="newjob.compdesc" placeholder="請簡單描述職缺所在的公司(純文字排版)" style="min-height: 100px" class="form-control"></textarea>
+              </div>
+            </div><br>
             <div class="row">
               <div class="col-sm-3 text-right">
                 <h4>公司網址</h4>
@@ -232,8 +288,8 @@
             <p>你有考慮過到國外工作嗎？不不不，人不用到國外。比方說 <a href="http://jobmote.com/">JOBMOTE</a> 這個網站提供了不少遠距工作的職缺，像是 <a href="http://jobmote.com/job/6451-mean-javascript-master">這一個職缺</a> 所需的技能差不多就只是架設這一個平台所需的技能而已。別忘了也參考一下<a href="http://www.flexjobs.com/">Flexjobs</a> 這一個網站，看看他的標題：</p>
             <blockquote>Life is flexible... is your job?</blockquote>
             <p>我想這個問題必須要由你自己來回答。</p><br>
-            <p>這個平台的建立是啟發自<a href="http://66kjobs.tw">66kjobs</a>，據說開發者使用 Ruby 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下，決定為了節省時間，連後端都不開發了，純粹撰寫前端程式碼，使用簡潔的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase 稍微兜兜兜，咦！才兩個多小時，我已經開始在寫「關於我們」了，其中一個小時還是在爬取職業列表以及挑選首頁用的照片呢，就只差 inside jobs 爬蟲還沒寫了，不過我傾向去爬批踢踢的 job / tech-job / soft-job / part-time 各板，反正 <a href="http://github.com/zbryikt/ptt-crawler">批踢踢爬蟲程式</a> 以前就已經寫過了，只差文章 parser 而已。</p><br>
-            <p>67kjobs 後端接的是 firebase ，權限控制上可能還會有點問題，也還需要再特別建立過濾機制，但難度不會很高，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。</p><br>
+            <p>這個平台的建立是啟發自<a href="http://66kjobs.tw">66kjobs</a>，據說開發者使用 Ruby 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下， 決定使用精簡的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase ，趁晚上小孩睡覺以後幾個小時，大致上就把東西整理得差不多了，預計再寫個批踢踢文章 parser 來整理求職版文章，應該不會太費時因為 <a href="http://github.com/zbryikt/ptt-crawler">批踢踢爬蟲程式</a> 以前有了。</p><br>
+            <p>67kjobs 後端接的是 firebase ，難度不會很高但 noSQL 架構有些限制，有機會可以嘗試再用 python django 或是 nodejs express + mongodb 再寫一次，扣掉前端與設計的部分，估計大約一 ~ 兩個小時就可以把網站架起來了。</p><br>
             <p>所有程式碼皆放在 <a href="http://github.com/zbryikt/67kjobs">github repo</a> ，歡迎自己拿去參考。</p>
             <div class="text-right">tkirby @ 2014.07.15</div>
           </div>

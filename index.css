@@ -1,9 +1,3 @@
-uiload {
-  display: inline-block;
-  position: relative; }
-  uiload > div {
-    position: relative; }
-
 html, body {
   margin: 0;
   padding: 0;
@@ -59,20 +53,58 @@ html, body {
   margin: 0 auto;
   font-size: 1.3em; }
 
-.job .cell {
+.job {
+  font-size: 0.75em;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #eeeeee; }
+  .job .cell {
+    display: inline-block; }
+  .job .rank {
+    width: 140px; }
+  .job .title {
+    width: 300px;
+    font-size: 1.3em; }
+    .job .title > a:hover {
+      text-decoration: underline;
+      cursor: pointer; }
+    .job .title .small {
+      font-size: 0.5em;
+      display: inline-block; }
+  .job .time {
+    float: right;
+    text-align: right;
+    width: 120px; }
+    .job .time img {
+      vertical-align: middle;
+      width: 24px; }
+
+.head .job {
+  margin-bottom: 0;
+  border-bottom: none; }
+
+.ranker {
+  background: white;
+  border-radius: 5px;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  vertical-align: middle;
   display: inline-block; }
-.job .title {
-  width: 300px; }
-.job .jobname {
-  width: 150px; }
-.job .loc {
-  width: 150px; }
-.job .salary {
-  width: 200px; }
-.job .company {
-  width: 150px; }
-.job .company {
-  width: 150px; }
+
+.ranker.blue {
+  background: #1144ff; }
+
+.ranker.green {
+  background: #229911; }
+
+.ranker.yellow {
+  background: yellow; }
+
+.ranker.orange {
+  background: #ff9922; }
+
+.ranker.red {
+  background: #ff4411; }
 
 .list-group-item.head {
   background: #444444;
@@ -165,7 +197,12 @@ html, body {
   width: 100%;
   height: 100%;
   margin-top: 50px;
-  position: relative; }
+  position: relative;
+  background-image: -o-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
+  background-image: -moz-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
+  background-image: -webkit-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
+  background-image: -ms-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
+  background-image: linear-gradient(to bottom, #bfbfbf 0%, #4d4d4d 100%); }
 
 .cover {
   position: absolute;
@@ -174,7 +211,15 @@ html, body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  z-index: 10; }
+  z-index: 10;
+  opacity: 0;
+  -ms-transition: all 1s;
+  -moz-transition: all 1s;
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s; }
+  .cover.visible {
+    opacity: 1; }
   .cover .ib {
     padding-top: 10%; }
   .cover .title {
@@ -193,6 +238,9 @@ html, body {
     text-align: right;
     text-shadow: 0 0 4px black; }
 
+@media (max-width: 1000px) {
+  .cover .title {
+    font-size: 3em; } }
 #cover1 {
   -ms-animation: carousel 18s infinite linear;
   -moz-animation: carousel 18s infinite linear;
@@ -237,7 +285,7 @@ html, body {
   height: 300px;
   position: absolute;
   top: 5%;
-  right: 300px;
+  right: 6%;
   z-index: 11;
   background-repeat: no-repeat;
   background-position: center center;
@@ -292,3 +340,11 @@ hr.color {
 
 .blue {
   color: #4499cc; }
+
+.bonus .checkbox {
+  margin-right: 20px; }
+.bonus .glyphicon {
+  margin-left: 5px; }
+
+blockquote.pre {
+  white-space: pre; }

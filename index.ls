@@ -1,4 +1,8 @@
 angular.module \jobs, <[firebase]>
+  ..filter \tok, -> (it) -> 
+    if isNaN it => return it
+    "#{parseInt(it / 1000 )}K"
+
   ..directive \delayBk, -> do
     restrict: \A
     link: (scope, e, attrs, ctrl) ->
@@ -11,18 +15,27 @@ angular.module \jobs, <[firebase]>
     $scope.jobtypes = jobtypes
     $scope.needfix = false
     $scope.newjob = {}
-    if true => $scope.newjob = do
-      title: \測試職稱
-      jobtype: null
-      jobname: null
+    if false => $scope.newjob = do
+      title: \碩士級以上研究助理
+      jobtype: $scope.jobtypes.2
+      jobname: $scope.jobtypes.2.jobs.3
       salary1: 67000
       salary2: 68000
       location: \台北市
-      company: \市北台
-      email: \blah@blah.io
+      company: \中央研究院
+      url: \http://www.sinica.edu.tw
+      email: \hr@nowhere.no
+      desc: \研究助理，協助研究員進行研究，處理文件，申請補助計劃，論文編撰。
     $scope.user = null
     $scope.jobtype = ""
     $scope.jobs = [] 
+
+    update = (data) ->
+      ret = []
+      for item of data => if item.indexOf("$")!=0 => 
+        ret.push [item, data[item]]
+      ret
+
     $scope.$watch 'newjob.jobtype', (v) -> if $scope.newjob.jobtype =>
       $scope.jobs = $scope.newjob.jobtype.jobs
       console.log $scope.newjob.jobtype.jobs
@@ -30,28 +43,34 @@ angular.module \jobs, <[firebase]>
       date: new Firebase \https://joblist.firebaseio.com/jobs
     $scope.datasrc = do
       date: $firebase $scope.db-ref.date
-      get: ({id, name})->
+      get: ({id=0, name="date"})->
         if !@[name] => 
           if !$scope.db-ref[name] => $scope.db-ref[name] = new Firebase "https://joblist.firebaseio.com/cat#id"
           @[name] = $firebase $scope.db-ref[name]
-        @[name].$on \loaded, -> $scope.data[id] = it
-        @[name].$on \change, -> $scope.data[id] = it
+        @[name].$on \loaded, -> $scope.data[id] = update it
+        #@[name].$on \change, (it)-> $scope.data[id] = it
         @[name]
     $scope.data = {}
 
     $scope.auth = new FirebaseSimpleLogin $scope.db-ref.date, (e,u) -> $scope.$apply -> $scope.user = u
     $scope.login = -> $scope.auth.login('facebook')
     $scope.logout = -> $scope.auth.logout()
-    $scope.joblist = []
-    update = ->
-      $scope.joblist = []
-      for item of $scope.datasrc.date => if item.indexOf("$")!=0 => 
-        $scope.joblist.push $scope.datasrc.date[item]
-    $scope.datasrc.date.$on \loaded, -> update!
-    $scope.datasrc.date.$on \change, -> update!
+    #$scope.joblist = []
+    $scope.datasrc.date.$on \loaded, -> $scope.data[0] = update it
+    #$scope.datasrc.date.$on \change, -> update!
     $scope.$watch 'jobtab', -> if $scope.jobtab => 
       src = $scope.datasrc.get $scope.jobtab
 
+    $scope.curjob = {}
+    $scope.detail = (j) ->
+      $scope.curjob = j
+      setTimeout (->$(\#job-detail-modal).modal("show")), 0
+    $scope.remove = (job) ->
+      console.log "removing..."
+      console.log $scope.jobtab
+      src = $scope.datasrc.get if $scope.jobtab => $scope.jobtab else {id: 0, name: "date"}
+      console.log src
+      src.$remove job.0 
 
     $scope.submit = ->
       check = <[jobname salary2 salary1 company email jobtype location title]>
@@ -64,13 +83,11 @@ angular.module \jobs, <[firebase]>
         console.log "submit job failed"
         $scope.needfix = true
         return
+      now = new Date!getTime!
       $scope.newjob.owner = {id: $scope.user.id, name: $scope.user.displayName}
+      $scope.newjob.time = now
       $scope.datasrc.date.$add $scope.newjob
       $scope.datasrc.get($scope.newjob.jobtype).$add $scope.newjob
       $scope.newjob = {}
       $scope.needfix = false
       console.log "job added"
-
-    /*$scope.joblist = [
-      {"company":"foundi.info","email":"hr@foundi.info","jobname":{"id":"0205","name":"裁石工、碎石工"},"jobtype":{"id":"02","jobs":[{"id":"0201","name":"冶金工程師"},{"id":"0202","name":"冶金技術員"},{"id":"0203","name":"採礦工程師"},{"id":"0204","name":"採礦技術員"},{"id":"0205","name":"裁石工、碎石工"},{"id":"0206","name":"裁石工及石雕工"},{"id":"0207","name":"熔爐操作工"},{"id":"0208","name":"爆破工"},{"id":"0209","name":"礦工、採石工"},{"id":"0210","name":"鑽井工"},{"id":"0211","name":"鑿岩工、採石工"}],"name":"採礦冶金職類"},"location":"台北市","salary":67000,"title":"軟體工程師"}
-    ]*/
