@@ -159,7 +159,7 @@
                 <h4>職缺 / 頭銜</h4>
               </div>
               <div class="col-sm-9">
-                <input name="title" type="text" ng-model="newjob.title" placeholder="例如，執行副理、保險業務助理、資深任體工程師等等" required min-length="3" class="form-control">
+                <input name="title" type="text" ng-model="newjob.title" placeholder="例如，執行副理、保險業務助理、資深任體工程師等等" required ng-minlength="3" ng-maxlength="35" class="form-control">
               </div>
             </div>
             <div class="row">
@@ -188,10 +188,10 @@
               </div>
               <div class="col-sm-9 form-inline">
                 <div class="form-group">
-                  <input name="salary1" type="text" ng-model="newjob.salary1" placeholder="最低值，至少六萬七" required class="form-control">
+                  <input name="salary1" type="text" ng-model="newjob.salary1" placeholder="最低值，至少六萬七" required ng-maxlength="9" class="form-control">
                 </div> 至
                 <div class="form-group">
-                  <input name="salary2" type="number" ng-model="newjob.salary2" placeholder="最高值，如：990000" required class="form-control">
+                  <input name="salary2" type="number" ng-model="newjob.salary2" placeholder="最高值，如：990000" required ng-maxlength="9" class="form-control">
                 </div><br> (單位: 新台幣)
               </div>
             </div><br>
@@ -229,7 +229,7 @@
                 <h4>工作地點</h4>
               </div>
               <div class="col-sm-9">
-                <input name="location" type="text" ng-model="newjob.location" placeholder="例如：台北市、上海" required class="form-control">
+                <input name="location" type="text" ng-model="newjob.location" placeholder="例如：台北市、上海" required ng-maxlength="30" class="form-control">
               </div>
             </div>
             <div class="row">
@@ -246,7 +246,7 @@
                 <h4>公司名稱</h4>
               </div>
               <div class="col-sm-9">
-                <input name="company" type="text" ng-model="newjob.company" placeholder="例如：跑得慢股份有限公司" required class="form-control">
+                <input name="company" type="text" ng-model="newjob.company" placeholder="例如：跑得慢股份有限公司" required ng-maxlength="30" class="form-control">
               </div>
             </div>
             <div class="row">
@@ -270,14 +270,14 @@
                 <h4>電子郵件</h4>
               </div>
               <div class="col-sm-9">
-                <input name="email" type="email" ng-model="newjob.email" placeholder="例如: hr@runsoslow.io" required class="form-control">
+                <input name="email" type="email" ng-model="newjob.email" placeholder="例如: hr@runsoslow.io" required ng-maxlength="30" class="form-control">
                 <div class="small">( 收履歷用 )</div>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <div ng-show="needfix" class="alert alert-warning">表單有些問題，請改一改再送出</div>
+                <div ng-show="needfix" class="alert alert-warning">表單有些問題，請修正再送出</div>
               </div>
               <div class="col-sm-9">
                 <div ng-show="user" ng-click="submit()" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>

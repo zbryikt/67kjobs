@@ -109,12 +109,6 @@ block content
 
         .list-group-item
           .job(ng-repeat="j in data[jobtab.id || 0]") 
-            //-
-              | [
-              | {{job}}
-              | /
-              | {{v}}
-              | ]
             .cell.rank
               .ranker(ng-class="{'blue':j[1].salary1<70000,'green':j[1].salary1>=70000 && j[1].salary1<80000,'yellow':j[1].salary1>=80000 && j[1].salary1<100000,'orange':j[1].salary1>=100000 && j[1].salary1<150000,'red':j[1].salary1>=150000}")
               | {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
@@ -145,7 +139,7 @@ block content
         .col-sm-3.text-right
           h4 職缺 / 頭銜
         .col-sm-9
-          input.form-control(name="title",type="text",ng-model="newjob.title",placeholder="例如，執行副理、保險業務助理、資深任體工程師等等",required,min-length="3")
+          input.form-control(name="title",type="text",ng-model="newjob.title",placeholder="例如，執行副理、保險業務助理、資深任體工程師等等",required,ng-minlength="3",ng-maxlength="35")
       .row
         .col-sm-3.text-right
           h4 職業別
@@ -163,10 +157,10 @@ block content
           h4 月薪範圍
         .col-sm-9.form-inline
           .form-group
-            input.form-control(name="salary1",type="text",ng-model="newjob.salary1",placeholder="最低值，至少六萬七",required)
+            input.form-control(name="salary1",type="text",ng-model="newjob.salary1",placeholder="最低值，至少六萬七",required,ng-maxlength="9")
           |  至
           .form-group
-            input.form-control(name="salary2",type="number",ng-model="newjob.salary2",placeholder="最高值，如：990000",required)
+            input.form-control(name="salary2",type="number",ng-model="newjob.salary2",placeholder="最高值，如：990000",required,ng-maxlength="9")
           br
           |  (單位: 新台幣)
       br
@@ -199,7 +193,7 @@ block content
         .col-sm-3.text-right
           h4 工作地點
         .col-sm-9
-          input.form-control(name="location",type="text",ng-model="newjob.location",placeholder="例如：台北市、上海",required)
+          input.form-control(name="location",type="text",ng-model="newjob.location",placeholder="例如：台北市、上海",required,ng-maxlength="30")
       .row
         .col-sm-3.text-right
           h4 工作內容
@@ -210,7 +204,7 @@ block content
         .col-sm-3.text-right
           h4 公司名稱
         .col-sm-9
-          input.form-control(name="company",type="text",ng-model="newjob.company",placeholder="例如：跑得慢股份有限公司",required)
+          input.form-control(name="company",type="text",ng-model="newjob.company",placeholder="例如：跑得慢股份有限公司",required,ng-maxlength="30")
       .row
         .col-sm-3.text-right
           h4 公司介紹
@@ -226,12 +220,12 @@ block content
         .col-sm-3.text-right
           h4 電子郵件
         .col-sm-9
-          input.form-control(name="email",type="email",ng-model="newjob.email",placeholder="例如: hr@runsoslow.io",required)
+          input.form-control(name="email",type="email",ng-model="newjob.email",placeholder="例如: hr@runsoslow.io",required,ng-maxlength="30")
           .small ( 收履歷用 )
       hr
       .row
         .col-sm-3
-          .alert.alert-warning(ng-show="needfix") 表單有些問題，請改一改再送出
+          .alert.alert-warning(ng-show="needfix") 表單有些問題，請修正再送出
         .col-sm-9
           .btn.btn-success.btn-rad.btn-block.btn-lg(ng-show="user",ng-click="submit()") 刊登求才啟示
           .btn.btn-warning.btn-rad.btn-block.btn-lg(ng-show="!user",ng-click="login()") 按此登入後即可刊登
