@@ -62,7 +62,6 @@ html, body {
   .job .rank {
     width: 140px; }
   .job .title {
-    width: 300px;
     font-size: 1.3em; }
     .job .title > a:hover {
       text-decoration: underline;
