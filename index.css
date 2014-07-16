@@ -234,13 +234,16 @@ html, body {
     font-weight: 900;
     color: white;
     padding: 1% 10% 1% 1%;
-    margin-top: 5px;
+    margin-top: 20px;
     text-align: right;
     text-shadow: 0 0 4px black; }
 
 @media (max-width: 1000px) {
   .cover .title {
     font-size: 3em; } }
+@media (max-width: 900px) {
+  .cover .desc {
+    font-size: 1.2em; } }
 #cover1 {
   -ms-animation: carousel 18s infinite linear;
   -moz-animation: carousel 18s infinite linear;
