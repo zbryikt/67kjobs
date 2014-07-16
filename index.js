@@ -22,7 +22,7 @@ x$.controller('index', function($scope, $timeout, $firebase){
   $scope.jobtypes = jobtypes;
   $scope.needfix = false;
   $scope.newjob = {};
-  if (false) {
+  if (true) {
     $scope.newjob = {
       title: '測試職稱',
       jobtype: {
@@ -40,6 +40,7 @@ x$.controller('index', function($scope, $timeout, $firebase){
       email: 'blah@blah.io'
     };
   }
+  $scope.user = null;
   $scope.jobtype = "";
   $scope.jobs = [];
   $scope.$watch('newjob.jobtype', function(v){
@@ -51,8 +52,16 @@ x$.controller('index', function($scope, $timeout, $firebase){
   $scope.dbRef = new Firebase('https://joblist.firebaseio.com/jobs');
   $scope.listsrc = $firebase($scope.dbRef);
   $scope.auth = new FirebaseSimpleLogin($scope.dbRef, function(e, u){
-    return $scope.user = u;
+    return $scope.$apply(function(){
+      return $scope.user = u;
+    });
   });
+  $scope.login = function(){
+    return $scope.auth.login('facebook');
+  };
+  $scope.logout = function(){
+    return $scope.auth.logout();
+  };
   $scope.joblist = [];
   console.log($scope.listsrc);
   update = function(){
@@ -81,6 +90,9 @@ x$.controller('index', function($scope, $timeout, $firebase){
     t2 = $scope.newjobform.salary2;
     t1.$setValidity('salary1', $scope.newjob.salary1 < 67000 ? false : true);
     t2.$setValidity('salary2', isNaN($scope.newjob.salary2) || $scope.newjob.salary2 < $scope.newjob.salary1 ? false : true);
+    if (!$scope.user) {
+      return;
+    }
     if (check.map(function(it){
       return $scope.newjobform[it].$invalid;
     }).filter(function(it){
@@ -90,6 +102,10 @@ x$.controller('index', function($scope, $timeout, $firebase){
       $scope.needfix = true;
       return;
     }
+    $scope.newjob.owner = {
+      id: $scope.user.id,
+      name: $scope.user.displayName
+    };
     $scope.listsrc.$add($scope.newjob);
     $scope.newjob = {};
     $scope.needfix = false;

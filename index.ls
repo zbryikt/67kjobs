@@ -11,7 +11,7 @@ angular.module \jobs, <[firebase]>
     $scope.jobtypes = jobtypes
     $scope.needfix = false
     $scope.newjob = {}
-    if false => $scope.newjob = do
+    if true => $scope.newjob = do
       title: \測試職稱
       jobtype: id: \test, name: \test
       jobname: id: \test, name: \test
@@ -20,6 +20,7 @@ angular.module \jobs, <[firebase]>
       location: \台北市
       company: \市北台
       email: \blah@blah.io
+    $scope.user = null
     $scope.jobtype = ""
     $scope.jobs = [] 
     $scope.$watch 'newjob.jobtype', (v) -> if $scope.newjob.jobtype =>
@@ -27,7 +28,9 @@ angular.module \jobs, <[firebase]>
       console.log $scope.newjob.jobtype.jobs
     $scope.db-ref = new Firebase \https://joblist.firebaseio.com/jobs
     $scope.listsrc = $firebase $scope.db-ref
-    $scope.auth = new FirebaseSimpleLogin $scope.db-ref, (e,u) -> $scope.user = u
+    $scope.auth = new FirebaseSimpleLogin $scope.db-ref, (e,u) -> $scope.$apply -> $scope.user = u
+    $scope.login = -> $scope.auth.login('facebook')
+    $scope.logout = -> $scope.auth.logout()
     $scope.joblist = []
     console.log $scope.listsrc
     update = ->
@@ -45,10 +48,12 @@ angular.module \jobs, <[firebase]>
       t2 = $scope.newjobform.salary2
       t1.$setValidity \salary1, (if $scope.newjob.salary1 < 67000 => false else true)
       t2.$setValidity \salary2, if isNaN($scope.newjob.salary2) or $scope.newjob.salary2 < $scope.newjob.salary1 => false else true
+      if !$scope.user => return
       if check.map(-> $scope.newjobform[it].$invalid)filter(->it)length =>
         console.log "submit job failed"
         $scope.needfix = true
         return
+      $scope.newjob.owner = {id: $scope.user.id, name: $scope.user.displayName}
       $scope.listsrc.$add $scope.newjob
       $scope.newjob = {}
       $scope.needfix = false

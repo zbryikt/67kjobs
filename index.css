@@ -25,6 +25,21 @@ html, body {
 .navbar-brand {
   padding: 2px 20px; }
 
+.nav li a {
+  cursor: pointer; }
+
+.navbar-nav > li.avatar > a {
+  padding: 0; }
+.navbar-nav > li.avatar .pic {
+  width: 32px;
+  height: 32px;
+  margin: 10px;
+  vertical-align: middle;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block; }
+
 .quote {
   font-size: 3em;
   text-align: center; }
@@ -55,7 +70,9 @@ html, body {
 .job .salary {
   width: 200px; }
 .job .company {
-  width: 200px; }
+  width: 150px; }
+.job .company {
+  width: 150px; }
 
 .list-group-item.head {
   background: #444444;

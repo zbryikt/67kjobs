@@ -43,7 +43,7 @@ block content
     #list-job
     .small.text-right - 67k jobs platform 
   br
-  #index(ng-controller="index")
+  #index
     hr.color.orange
     br
     #joblist
@@ -58,6 +58,7 @@ block content
             .cell.loc 工作地點
             .cell.salary 薪資範圍
             .cell.company 公司名稱
+            .cell.user 刊登者
 
         .list-group-item
           .job(ng-repeat="job in joblist") 
@@ -67,6 +68,7 @@ block content
             .cell.salary {{job.salary1}} ~ {{job.salary2}}
             .cell.company 
               a(href="{{job.url}}") {{job.company}}
+            .cell.user {{job.owner.name}}
     #post-job
     br
     br
@@ -137,7 +139,8 @@ block content
         .col-sm-3
           .alert.alert-warning(ng-show="needfix") 表單有些問題，請改一改再送出
         .col-sm-9
-          .btn.btn-success.btn-rad.btn-block.btn-lg(ng-click="submit()") 刊登求才啟示
+          .btn.btn-success.btn-rad.btn-block.btn-lg(ng-show="user",ng-click="submit()") 刊登求才啟示
+          .btn.btn-warning.btn-rad.btn-block.btn-lg(ng-show="!user",ng-click="login()") 按此登入後即可刊登
     br
     hr.color.blue
     #aboutus
@@ -168,7 +171,7 @@ block content
         a(href="http://github.com/zbryikt/ptt-crawler") 批踢踢爬蟲程式
         |  以前就已經寫過了，只差文章 parser 而已。
       br
-      p 67kjobs 後端接的是 firebase ，權限控制上還有點問題，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。
+      p 67kjobs 後端接的是 firebase ，權限控制上可能還會有點問題，也還需要再特別建立過濾機制，但難度不會很高，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。
       br
       p 
         | 所有程式碼皆放在 

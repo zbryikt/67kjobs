@@ -26,7 +26,7 @@
     <script type="text/javascript" src="jobs.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </head>
-  <body ng-app="jobs">
+  <body ng-app="jobs" ng-controller="index">
     <nav role="navigation" class="navbar navbar-default navbar-fixed-top navbar-inverse">
       <div class="container-fluid"><a href="#" class="navbar-brand"><img src="img/logo-mini.png"></a></div>
       <div class="collapse navbar-collapse">
@@ -36,7 +36,10 @@
           <li><a href="#post-job">刊登職缺</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
-          <li><a href="#" class="disabled">登入</a></li>
+          <li ng-show="!user"><a ng-click="login()">以臉書登入</a></li>
+          <li ng-show="user" class="avatar"><a>
+              <div ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)" class="pic"></div>{{user.displayName}}</a></li>
+          <li ng-show="user"><a ng-click="logout()">登出</a></li>
         </ul>
       </div>
     </nav>
@@ -81,7 +84,7 @@
           <div id="list-job"></div>
           <div class="small text-right">- 67k jobs platform </div>
         </blockquote><br>
-        <div id="index" ng-controller="index">
+        <div id="index">
           <hr class="color orange"><br>
           <div id="joblist">
             <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表</h3>
@@ -93,6 +96,7 @@
                   <div class="cell loc">工作地點</div>
                   <div class="cell salary">薪資範圍</div>
                   <div class="cell company">公司名稱</div>
+                  <div class="cell user">刊登者</div>
                 </div>
               </div>
               <div class="list-group-item">
@@ -102,6 +106,7 @@
                   <div class="cell loc">{{job.location}}</div>
                   <div class="cell salary">{{job.salary1}} ~ {{job.salary2}}</div>
                   <div class="cell company"><a href="{{job.url}}">{{job.company}}</a></div>
+                  <div class="cell user">{{job.owner.name}}</div>
                 </div>
               </div>
             </div>
@@ -197,7 +202,8 @@
                 <div ng-show="needfix" class="alert alert-warning">表單有些問題，請改一改再送出</div>
               </div>
               <div class="col-sm-9">
-                <div ng-click="submit()" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>
+                <div ng-show="user" ng-click="submit()" class="btn btn-success btn-rad btn-block btn-lg">刊登求才啟示</div>
+                <div ng-show="!user" ng-click="login()" class="btn btn-warning btn-rad btn-block btn-lg">按此登入後即可刊登</div>
               </div>
             </div>
           </form><br>
@@ -209,7 +215,7 @@
             <blockquote>Life is flexible... is your job?</blockquote>
             <p>我想這個問題必須要由你自己來回答。</p><br>
             <p>這個平台的建立是啟發自<a href="http://66kjobs.tw">66kjobs</a>，據說開發者使用 Ruby 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下，決定為了節省時間，連後端都不開發了，純粹撰寫前端程式碼，使用簡潔的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase 稍微兜兜兜，咦！才兩個多小時，我已經開始在寫「關於我們」了，其中一個小時還是在爬取職業列表以及挑選首頁用的照片呢，就只差 inside jobs 爬蟲還沒寫了，不過我傾向去爬批踢踢的 job / tech-job / soft-job / part-time 各板，反正 <a href="http://github.com/zbryikt/ptt-crawler">批踢踢爬蟲程式</a> 以前就已經寫過了，只差文章 parser 而已。</p><br>
-            <p>67kjobs 後端接的是 firebase ，權限控制上還有點問題，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。</p><br>
+            <p>67kjobs 後端接的是 firebase ，權限控制上可能還會有點問題，也還需要再特別建立過濾機制，但難度不會很高，有機會可以嘗試用 python django 或是 nodejs express + mongodb 再寫一次，相信時間應該同樣不會花超過三個小時。</p><br>
             <p>所有程式碼皆放在 <a href="http://github.com/zbryikt/67kjobs">github repo</a> ，歡迎自己拿去參考。</p>
             <div class="text-right">tkirby @ 2014.07.15</div>
           </div>
