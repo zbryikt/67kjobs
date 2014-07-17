@@ -396,6 +396,8 @@ html, body {
   background: #444444;
   color: #eeeeee;
   text-align: right; }
+  #footer a {
+    color: white; }
 
 hr.color {
   border: none;
