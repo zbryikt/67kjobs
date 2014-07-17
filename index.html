@@ -113,7 +113,7 @@
                   <h4 class="text-center">薪資待遇(月薪)</h4>
                   <div class="row">
                     <div style="width:80%;margin:auto" class="col-sm-12 text-center">
-                      <div class="btn btn-lg btn-block btn-danger text-center"><i style="vertical-align:middle" class="glyphicon glyphicon-usd white small"></i> {{curjob.salary1}}元 ~ {{curjob.salary2}}元</div>
+                      <div class="btn btn-lg btn-block btn-danger text-center"><i style="vertical-align:middle" class="glyphicon glyphicon-usd white small"></i><span ng-if="curjob.salary1!=curjob.salary2"> {{curjob.salary1}}元 ~ {{curjob.salary2}}元</span><span ng-if="curjob.salary1==curjob.salary2"> {{curjob.salary1}}元</span></div>
                       <div ng-show="curjob.signbonus" class="label label-primary"><i class="glyphicon glyphicon-usd"></i> 有簽約金</div>
                       <div ng-show="curjob.techshare" class="label label-warning"><i class="glyphicon glyphicon-folder-close"></i> 有技術股</div>
                       <div ng-show="curjob.stockright" class="label label-danger"><i class="glyphicon glyphicon-heart"></i> 員工可認股</div>
@@ -157,7 +157,7 @@
               <div class="list-group-item">
                 <div ng-repeat="j in data[jobtab.id || 0]" class="job">
                   <div class="cell rank">
-                    <div ng-class="{'blue':j[1].salary1&lt;70000,'green':j[1].salary1&gt;=70000 &amp;&amp; j[1].salary1&lt;80000,'yellow':j[1].salary1&gt;=80000 &amp;&amp; j[1].salary1&lt;100000,'orange':j[1].salary1&gt;=100000 &amp;&amp; j[1].salary1&lt;150000,'red':j[1].salary1&gt;=150000}" class="ranker"></div>{{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+                    <div ng-class="{'blue':j[1].salary1&lt;70000,'green':j[1].salary1&gt;=70000 &amp;&amp; j[1].salary1&lt;80000,'yellow':j[1].salary1&gt;=80000 &amp;&amp; j[1].salary1&lt;100000,'orange':j[1].salary1&gt;=100000 &amp;&amp; j[1].salary1&lt;150000,'red':j[1].salary1&gt;=150000}" class="ranker"></div><span ng-if="j[1].salary1==j[1].salary2">{{j[1].salary1|tok}}</span><span ng-if="j[1].salary1!=j[1].salary2">{{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}</span>
                   </div>
                   <div class="cell title"><a ng-click="detail(j[1])">{{j[1].title}}</a>
                     <div class="small"> (  <a ng-if="j[1].url" href="//{{j[1].url}}">{{j[1].company}}</a><span ng-if="!j[1].url">{{j[1].company}}</span> ) </div>
@@ -311,8 +311,8 @@
             <p>67kjobs 後端接的是 firebase ，難度不會很高但架構有些限制，有機會可以嘗試再用 python django 或是 nodejs express + mongodb 再寫一次，扣掉前端與設計的部分，估計也是可以很快就把網站架起來了。</p><br>
             <div class="small text-right">contact: 67kjobs&#x40;scrape4.me</div>
             <hr>
-            <h4>友情贊助</h4>
-            <p>下面是一些有潛力的新創團隊，雖然加入他們待遇不高，但歡迎大家跟他們聊聊天。</p><br>
+            <h4><i class="glyphicon glyphicon-heart red"></i><b> 友情贊助</b></h4>
+            <p>下面是一些有潛力的新創團隊，雖然他們能給的待遇並不高，但歡迎大家跟他們聊聊天。</p><br>
             <div class="sponsor">
               <div class="brand"><a href="http://artbloom.co/works/the-starry-night/" target="_blank"><img src="img/ally/artbloom.png"></a></div>
               <div class="desc">線上買藝術品</div>

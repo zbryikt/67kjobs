@@ -83,7 +83,8 @@ block content
             .row: .col-sm-12.text-center(style="width:80%;margin:auto")
               .btn.btn-lg.btn-block.btn-danger.text-center 
                 i.glyphicon.glyphicon-usd.white.small(style="vertical-align:middle")
-                |  {{curjob.salary1}}元 ~ {{curjob.salary2}}元
+                span(ng-if="curjob.salary1!=curjob.salary2")  {{curjob.salary1}}元 ~ {{curjob.salary2}}元
+                span(ng-if="curjob.salary1==curjob.salary2")  {{curjob.salary1}}元
               .label.label-primary(ng-show="curjob.signbonus")
                 i.glyphicon.glyphicon-usd
                 |  有簽約金
@@ -132,7 +133,9 @@ block content
           .job(ng-repeat="j in data[jobtab.id || 0]") 
             .cell.rank
               .ranker(ng-class="{'blue':j[1].salary1<70000,'green':j[1].salary1>=70000 && j[1].salary1<80000,'yellow':j[1].salary1>=80000 && j[1].salary1<100000,'orange':j[1].salary1>=100000 && j[1].salary1<150000,'red':j[1].salary1>=150000}")
-              | {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+              span(ng-if="j[1].salary1==j[1].salary2") {{j[1].salary1|tok}}
+              span(ng-if="j[1].salary1!=j[1].salary2") {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+              //-| {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
             .cell.title 
               a(ng-click="detail(j[1])") {{j[1].title}}
               .small
@@ -290,8 +293,10 @@ block content
         |  ，有發現問題歡迎提出 issue。
       .small.text-right contact: 67kjobs&#x40;scrape4.me
       hr
-      h4 友情贊助
-      p 下面是一些有潛力的新創團隊，雖然加入他們待遇不高，但歡迎大家跟他們聊聊天。
+      h4 
+        i.glyphicon.glyphicon-heart.red
+        b  友情贊助
+      p 下面是一些有潛力的新創團隊，雖然他們能給的待遇並不高，但歡迎大家跟他們聊聊天。
       br
       .sponsor
         .brand: a(href="http://artbloom.co/works/the-starry-night/",target="_blank"): img(src="img/ally/artbloom.png")
