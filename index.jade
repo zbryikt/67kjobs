@@ -51,22 +51,28 @@ block content
             button.close(type="button",data-dismiss="modal")
               span(aria-hidden="true") &times;
               span.sr-only Close
-            h4 {{curjob.title}} / {{curjob.company}}
+            h4 
+              | 職缺 / {{curjob.title}} 
+              .small(style="display:inline-block") - {{curjob.company}}
           .modal-body
-            i.glyphicon.glyphicon-calendar.green
+            i.glyphicon.glyphicon-briefcase.green
+            |  公司名稱: {{curjob.company}}
+            br
+            i.glyphicon.glyphicon-calendar.blue
             |  刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}
             br
             i.glyphicon.glyphicon-map-marker.red
             |  工作地點: {{curjob.location}}
             br
-            i.glyphicon.glyphicon-envelope.blue
+            i.glyphicon.glyphicon-envelope.orange
             |  履歷請寄至 
             a(href="{{curjob.email}}") {{curjob.email}}
             hr
             h4.text-center 薪資待遇(月薪)
             .row: .col-sm-12.text-center(style="width:80%;margin:auto")
               .btn.btn-lg.btn-block.btn-danger.text-center 
-                | {{curjob.salary1}}元 ~ {{curjob.salary2}}元
+                i.glyphicon.glyphicon-usd.white.small(style="vertical-align:middle")
+                |  {{curjob.salary1}}元 ~ {{curjob.salary2}}元
               .label.label-primary(ng-show="curjob.signbonus")
                 i.glyphicon.glyphicon-usd
                 |  有簽約金
@@ -81,10 +87,14 @@ block content
                 |  年終獎金三個月以上
             br
             hr
-            h4 工作內容
+            h4
+              | 工作內容
+              .small.pull-right {{curjob.title}}
             blockquote.pre {{curjob.desc}}
             hr
-            h4 公司簡介
+            h4 
+              | 公司簡介
+              .small.pull-right {{curjob.company}}
             blockquote.pre {{curjob.compdesc}}
           .modal-footer
             button.btn.btn-default(type="button",data-dismiss="modal") 關閉

@@ -367,6 +367,9 @@ hr.color {
   hr.color.blue {
     border-color: #4499cc; }
 
+.white {
+  color: white; }
+
 .red {
   color: #ff2211; }
 
@@ -387,3 +390,7 @@ hr.color {
 blockquote.pre {
   white-space: pre;
   overflow-x: scroll; }
+
+.modal-dialog {
+  width: 80%;
+  max-width: 960px; }

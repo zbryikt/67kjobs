@@ -39,25 +39,23 @@ angular.module \jobs, <[firebase]>
     $scope.$watch 'newjob.jobtype', (v) -> if $scope.newjob.jobtype =>
       $scope.jobs = $scope.newjob.jobtype.jobs
       console.log $scope.newjob.jobtype.jobs
-    $scope.db-ref = do
-      date: new Firebase \https://joblist.firebaseio.com/jobs
+    $scope.db-ref = {}
     $scope.datasrc = do
-      date: $firebase $scope.db-ref.date
-      get: ({id=0, name="date"})->
+      get: ({id=0, name="all"})->
         if !@[name] => 
           if !$scope.db-ref[name] => $scope.db-ref[name] = new Firebase "https://joblist.firebaseio.com/cat#id"
           @[name] = $firebase $scope.db-ref[name]
-        @[name].$on \loaded, -> $scope.data[id] = update it
-        #@[name].$on \change, (it)-> $scope.data[id] = it
+        @[name].$on \loaded, (v) -> $scope.$apply ->
+          $scope.data[id] = update v
+        @[name].$on \change, (v) ~> if v and $scope.data[id]!=undefined =>
+          $scope.$apply ~> $scope.data[id].push [v, @[name][v]]
         @[name]
+    $scope.datasrc.get {id:0, name:"all"}
     $scope.data = {}
 
-    $scope.auth = new FirebaseSimpleLogin $scope.db-ref.date, (e,u) -> $scope.$apply -> $scope.user = u
+    $scope.auth = new FirebaseSimpleLogin $scope.db-ref.all, (e,u) -> $scope.$apply -> $scope.user = u
     $scope.login = -> $scope.auth.login('facebook')
     $scope.logout = -> $scope.auth.logout()
-    #$scope.joblist = []
-    $scope.datasrc.date.$on \loaded, -> $scope.data[0] = update it
-    #$scope.datasrc.date.$on \change, -> update!
     $scope.$watch 'jobtab', -> if $scope.jobtab => 
       src = $scope.datasrc.get $scope.jobtab
 
@@ -67,9 +65,7 @@ angular.module \jobs, <[firebase]>
       setTimeout (->$(\#job-detail-modal).modal("show")), 0
     $scope.remove = (job) ->
       console.log "removing..."
-      console.log $scope.jobtab
-      src = $scope.datasrc.get if $scope.jobtab => $scope.jobtab else {id: 0, name: "date"}
-      console.log src
+      src = $scope.datasrc.get if $scope.jobtab => $scope.jobtab else {id: 0, name: "all"}
       src.$remove job.0 
 
     $scope.submit = ->
@@ -80,16 +76,16 @@ angular.module \jobs, <[firebase]>
       t2.$setValidity \salary2, if isNaN($scope.newjob.salary2) or $scope.newjob.salary2 < $scope.newjob.salary1 => false else true
       if !$scope.user => return
       if check.map(-> $scope.newjobform[it].$invalid)filter(->it)length =>
-        console.log "submit job failed"
+        console.error "submit job failed"
         $scope.needfix = true
         return
       now = new Date!getTime!
       $scope.newjob.owner = {id: $scope.user.id, name: $scope.user.displayName}
       $scope.newjob.time = now
-      $scope.datasrc.date.$add $scope.newjob
-      $scope.datasrc.get($scope.newjob.jobtype).$add $scope.newjob
+      ref1 = $scope.datasrc.all.$add $scope.newjob
+      ref2 = $scope.datasrc.get($scope.newjob.jobtype).$add $scope.newjob
       $scope.newjob = {}
       $scope.needfix = false
       console.log "job added"
       $scope.waitreload = true
-      setTimeout (-> window.location.reload!), 1000
+      $timeout (-> $scope.waitreload = false), 1000

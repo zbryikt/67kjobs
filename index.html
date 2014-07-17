@@ -91,14 +91,16 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <h4>{{curjob.title}} / {{curjob.company}}</h4>
+                  <h4>職缺 / {{curjob.title}} 
+                    <div style="display:inline-block" class="small">- {{curjob.company}}</div>
+                  </h4>
                 </div>
-                <div class="modal-body"><i class="glyphicon glyphicon-calendar green"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope blue"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
+                <div class="modal-body"><i class="glyphicon glyphicon-briefcase green"></i> 公司名稱: {{curjob.company}}<br><i class="glyphicon glyphicon-calendar blue"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope orange"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
                   <hr>
                   <h4 class="text-center">薪資待遇(月薪)</h4>
                   <div class="row">
                     <div style="width:80%;margin:auto" class="col-sm-12 text-center">
-                      <div class="btn btn-lg btn-block btn-danger text-center">{{curjob.salary1}}元 ~ {{curjob.salary2}}元</div>
+                      <div class="btn btn-lg btn-block btn-danger text-center"><i style="vertical-align:middle" class="glyphicon glyphicon-usd white small"></i> {{curjob.salary1}}元 ~ {{curjob.salary2}}元</div>
                       <div ng-show="curjob.signbonus" class="label label-primary"><i class="glyphicon glyphicon-usd"></i> 有簽約金</div>
                       <div ng-show="curjob.techshare" class="label label-warning"><i class="glyphicon glyphicon-folder-close"></i> 有技術股</div>
                       <div ng-show="curjob.stockright" class="label label-danger"><i class="glyphicon glyphicon-heart"></i> 員工可認股</div>
@@ -106,10 +108,14 @@
                     </div>
                   </div><br>
                   <hr>
-                  <h4>工作內容</h4>
+                  <h4>工作內容
+                    <div class="small pull-right">{{curjob.title}}</div>
+                  </h4>
                   <blockquote class="pre">{{curjob.desc}}</blockquote>
                   <hr>
-                  <h4>公司簡介</h4>
+                  <h4>公司簡介
+                    <div class="small pull-right">{{curjob.company}}</div>
+                  </h4>
                   <blockquote class="pre">{{curjob.compdesc}}</blockquote>
                 </div>
                 <div class="modal-footer">

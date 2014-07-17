@@ -63,28 +63,38 @@ x$.controller('index', function($scope, $timeout, $firebase){
       return console.log($scope.newjob.jobtype.jobs);
     }
   });
-  $scope.dbRef = {
-    date: new Firebase('https://joblist.firebaseio.com/jobs')
-  };
+  $scope.dbRef = {};
   $scope.datasrc = {
-    date: $firebase($scope.dbRef.date),
     get: function(arg$){
-      var id, ref$, name;
-      id = (ref$ = arg$.id) != null ? ref$ : 0, name = (ref$ = arg$.name) != null ? ref$ : "date";
+      var id, ref$, name, this$ = this;
+      id = (ref$ = arg$.id) != null ? ref$ : 0, name = (ref$ = arg$.name) != null ? ref$ : "all";
       if (!this[name]) {
         if (!$scope.dbRef[name]) {
           $scope.dbRef[name] = new Firebase("https://joblist.firebaseio.com/cat" + id);
         }
         this[name] = $firebase($scope.dbRef[name]);
       }
-      this[name].$on('loaded', function(it){
-        return $scope.data[id] = update(it);
+      this[name].$on('loaded', function(v){
+        return $scope.$apply(function(){
+          return $scope.data[id] = update(v);
+        });
+      });
+      this[name].$on('change', function(v){
+        if (v && $scope.data[id] !== undefined) {
+          return $scope.$apply(function(){
+            return $scope.data[id].push([v, this$[name][v]]);
+          });
+        }
       });
       return this[name];
     }
   };
+  $scope.datasrc.get({
+    id: 0,
+    name: "all"
+  });
   $scope.data = {};
-  $scope.auth = new FirebaseSimpleLogin($scope.dbRef.date, function(e, u){
+  $scope.auth = new FirebaseSimpleLogin($scope.dbRef.all, function(e, u){
     return $scope.$apply(function(){
       return $scope.user = u;
     });
@@ -95,9 +105,6 @@ x$.controller('index', function($scope, $timeout, $firebase){
   $scope.logout = function(){
     return $scope.auth.logout();
   };
-  $scope.datasrc.date.$on('loaded', function(it){
-    return $scope.data[0] = update(it);
-  });
   $scope.$watch('jobtab', function(){
     var src;
     if ($scope.jobtab) {
@@ -114,18 +121,16 @@ x$.controller('index', function($scope, $timeout, $firebase){
   $scope.remove = function(job){
     var src;
     console.log("removing...");
-    console.log($scope.jobtab);
     src = $scope.datasrc.get($scope.jobtab
       ? $scope.jobtab
       : {
         id: 0,
-        name: "date"
+        name: "all"
       });
-    console.log(src);
     return src.$remove(job[0]);
   };
   return $scope.submit = function(){
-    var check, t1, t2, now;
+    var check, t1, t2, now, ref1, ref2;
     check = ['jobname', 'salary2', 'salary1', 'company', 'email', 'jobtype', 'location', 'title'];
     t1 = $scope.newjobform.salary1;
     t2 = $scope.newjobform.salary2;
@@ -139,7 +144,7 @@ x$.controller('index', function($scope, $timeout, $firebase){
     }).filter(function(it){
       return it;
     }).length) {
-      console.log("submit job failed");
+      console.error("submit job failed");
       $scope.needfix = true;
       return;
     }
@@ -149,14 +154,14 @@ x$.controller('index', function($scope, $timeout, $firebase){
       name: $scope.user.displayName
     };
     $scope.newjob.time = now;
-    $scope.datasrc.date.$add($scope.newjob);
-    $scope.datasrc.get($scope.newjob.jobtype).$add($scope.newjob);
+    ref1 = $scope.datasrc.all.$add($scope.newjob);
+    ref2 = $scope.datasrc.get($scope.newjob.jobtype).$add($scope.newjob);
     $scope.newjob = {};
     $scope.needfix = false;
     console.log("job added");
     $scope.waitreload = true;
-    return setTimeout(function(){
-      return window.location.reload();
+    return $timeout(function(){
+      return $scope.waitreload = false;
     }, 1000);
   };
 });
