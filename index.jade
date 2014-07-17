@@ -6,21 +6,21 @@ block pre-content
     #cover5.cover(delay-bk="img/cover/2.jpg")
       .ib
         .title 你值得更好的工作
-        .desc 
+        .desc
           | 誰說你的人生只值這點錢？跳槽的時候到了。
           br
           span= subtitle
     #cover1.cover(delay-bk="img/cover/1.jpg")
       .ib
         .title 感到前途茫茫嗎？
-        .desc 
+        .desc
           | 迷惘是人之常情，但你必須要力圖改變。
           br
           span= subtitle
     #cover2.cover(delay-bk="img/cover/3.jpg")
       .ib
         .title 不要再委屈自己了
-        .desc 
+        .desc
           | 委身茅蘆待人顧嗎？別做21世紀臥龍，機會永遠都屬於自己爭取的人。
           br
           span= subtitle
@@ -34,7 +34,7 @@ block pre-content
     #cover4.cover(delay-bk="img/cover/2.jpg")
       .ib
         .title 你值得更好的工作
-        .desc 
+        .desc
           | 誰說你的人生只值這點錢？跳槽的時候到了。
           br
           span= subtitle
@@ -42,7 +42,7 @@ block content
   blockquote.quote
     | “ You Deserve Better. “
     #list-job
-    .small.text-right - 67k jobs platform 
+    .small.text-right - 67k jobs platform
   br
   h1(style="height:1px;opacity:0.01;overflow:hidden;font-size:1px") 67kjobs 六萬七職缺網 找好工作 待遇高 福利優
   #index
@@ -53,17 +53,17 @@ block content
             button.close(type="button",data-dismiss="modal")
               span(aria-hidden="true") &times;
               span.sr-only Close
-            h4 
-              | 職缺 / {{curjob.title}} 
+            h4
+              | 職缺 / {{curjob.title}}
               .small(style="display:inline-block") - {{curjob.company}}
             .small.blue {{curjob.jobtype.name}} / {{curjob.jobname.name}}
           .modal-body
             i.glyphicon.glyphicon-briefcase.green
             |  公司名稱 - {{curjob.company}}
             span(ng-if="curjob.url")
-              |  ( 
+              |  (
               i.glyphicon.glyphicon-globe.blue
-              |  
+              |
               a(href="{{curjob.url}}",target="_blank") 公司網站
               |  )
             br
@@ -77,12 +77,12 @@ block content
             |  工作分類 - {{curjob.jobtype.name}} / {{curjob.jobname.name}}
             br
             i.glyphicon.glyphicon-envelope.orange
-            |  履歷請寄至 
+            |  履歷請寄至
             a(href="{{curjob.email}}") {{curjob.email}}
             hr
             h4.text-center 薪資待遇(月薪)
             .row: .col-sm-12.text-center(style="width:80%;margin:auto")
-              .btn.btn-lg.btn-block.btn-danger.text-center 
+              .btn.btn-lg.btn-block.btn-danger.text-center
                 i.glyphicon.glyphicon-usd.white.small(style="vertical-align:middle")
                 span(ng-if="curjob.salary1!=curjob.salary2")  {{curjob.salary1}}元 ~ {{curjob.salary2}}元
                 span(ng-if="curjob.salary1==curjob.salary2")  {{curjob.salary1}}元
@@ -105,7 +105,7 @@ block content
               .small.pull-right {{curjob.title}}
             blockquote.pre {{curjob.desc}}
             hr
-            h4 
+            h4
               | 公司簡介
               .small.pull-right {{curjob.company}}
             blockquote.pre {{curjob.compdesc}}
@@ -122,33 +122,33 @@ block content
       .list-group
         .list-group-item.head
           .job
-            .cell.rank 
+            .cell.rank
               .ranker
               | 薪資
             .cell.title 職缺
             .cell.time
-              | 刊登時間 
+              | 刊登時間
               i.glyphicon.glyphicon-user
 
         .list-group-item
-          .job(ng-repeat="j in data[jobtab.id || 0]") 
+          .job(ng-repeat="j in data[jobtab.id || 0]")
             .cell.rank
               .ranker(ng-class="{'blue':j[1].salary1<70000,'green':j[1].salary1>=70000 && j[1].salary1<80000,'yellow':j[1].salary1>=80000 && j[1].salary1<100000,'orange':j[1].salary1>=100000 && j[1].salary1<150000,'red':j[1].salary1>=150000}")
               span(ng-if="j[1].salary1==j[1].salary2") {{j[1].salary1|tok}}
               span(ng-if="j[1].salary1!=j[1].salary2") {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
               //-| {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
-            .cell.title 
+            .cell.title
               a(ng-click="detail(j[1])") {{j[1].title}}
               .small
-                |  (  
+                |  (
                 a(ng-if="j[1].url",href="//{{j[1].url}}") {{j[1].company}}
                 span(ng-if="!j[1].url") {{j[1].company}}
 
-                |  ) 
-            .cell.time 
-              | {{j[1].time|date:'yyyy-MM-dd'}} 
+                |  )
+            .cell.time
+              | {{j[1].time|date:'yyyy-MM-dd'}}
               img(ng-if="j[1].owner.id",ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture")
-              |  
+              |
               i.glyphicon.glyphicon-remove.red(ng-show="{{user.id=='10151905053907168'}}",ng-click="remove(j)")
 
     #post-job
@@ -157,7 +157,7 @@ block content
     hr.color.green
     br
     form#new-job(name="newjobform",novalidate,ng-class="{'needfix':needfix}")
-      h3 
+      h3
         i.glyphicon.glyphicon-edit.green
         |  建立職缺
       .small 任何刊登在此平台的職缺都必須要提供薪資範圍，並且最低值要高於六萬七千元 (新台幣)
@@ -166,7 +166,7 @@ block content
         .col-sm-3.text-right
           h4 職缺 / 頭銜
         .col-sm-9
-          input.form-control(name="title",type="text",ng-model="newjob.title",placeholder="例如，執行副理、保險業務助理、資深任體工程師等等",required,ng-minlength="3",ng-maxlength="35")
+          input.form-control(name="title",type="text",ng-model="newjob.title",placeholder="例如，執行副理、保險業務助理、資深韌體工程師等等",required,ng-minlength="3",ng-maxlength="35")
       .row
         .col-sm-3.text-right
           h4 職業別
@@ -195,25 +195,25 @@ block content
         .col-sm-9.form-inline.bonus
           .form-group(style="margin-top: 6px")
             .checkbox
-              label 
+              label
                 input(type="checkbox",name="signbonus",ng-model="newjob.signbonus")
                 i.glyphicon.glyphicon-usd.blue
-                |  簽約金 
+                |  簽約金
             .checkbox
-              label 
+              label
                 input(type="checkbox",name="techshare",ng-model="newjob.techshare")
                 i.glyphicon.glyphicon-folder-close.orange
-                |  技術股 
+                |  技術股
             .checkbox
-              label 
+              label
                 input(type="checkbox",name="stockright",ng-model="newjob.stockright")
                 i.glyphicon.glyphicon-heart.red
-                |  員工認股 
+                |  員工認股
             .checkbox
-              label 
+              label
                 input(type="checkbox",name="annualbonus",ng-model="newjob.annualbonus")
                 i.glyphicon.glyphicon-gift.green
-                |  三個月以上年終獎金 
+                |  三個月以上年終獎金
       .row
         .col-sm-3.text-right
           h4 工作地點
@@ -266,9 +266,9 @@ block content
         p 所以你是說你的薪水不夠高。
         br
         p
-          | 你有考慮過到國外工作嗎？不不不，人不用到國外。比方說 
+          | 你有考慮過到國外工作嗎？不不不，人不用到國外。比方說
           a(href="http://jobmote.com/") JOBMOTE
-          |  這個網站提供了不少遠距工作的職缺，像是 
+          |  這個網站提供了不少遠距工作的職缺，像是
           a(href="http://jobmote.com/job/6451-mean-javascript-master") 這一個職缺
           |  所需的技能差不多就只是架設這一個平台所需的技能而已。別忘了也參考一下
           a(href="http://www.flexjobs.com/") Flexjobs
@@ -282,19 +282,19 @@ block content
       p
         | 這個平台的建立是啟發自
         a(href="http://66kjobs.tw") 66kjobs
-        | ，據說該平台開發者使用 Ruby on Rails 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下， 決定使用精簡的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase ，趁晚上小孩睡覺後幾個小時，大致上就把東西整理得差不多了，預計再寫個批踢踢文章 parser 來整理求職版文章，應該不會太費時，因為 
+        | ，據說該平台開發者使用 Ruby on Rails 花了八個小時就把網站建立起來。我想這會是一個很好的練習題目，稍微思考了一下， 決定使用精簡的 jade 、 sass 、 livescript 、 bootstrap 、 angularjs 、 firebase ，趁晚上小孩睡覺後幾個小時，大致上就把東西整理得差不多了，預計再寫個批踢踢文章 parser 來整理求職版文章，應該不會太費時，因為
         a(href="http://github.com/zbryikt/ptt-crawler") 批踢踢爬蟲程式
         |  以前就寫好了。
       br
       p 67kjobs 後端接的是 firebase ，難度不會很高但架構有些限制，有機會可以嘗試再用 python django 或是 nodejs express + mongodb 再寫一次，扣掉前端與設計的部分，估計也是可以很快就把網站架起來了。
       br
-      //-p 
-        | 所有程式碼皆放在 
+      //-p
+        | 所有程式碼皆放在
         a(href="http://github.com/zbryikt/67kjobs") github repo
         |  ，有發現問題歡迎提出 issue。
       .small.text-right contact: 67kjobs&#x40;scrape4.me
       hr
-      h4 
+      h4
         i.glyphicon.glyphicon-heart.red
         b  友情贊助
       p 下面是一些有潛力的新創團隊，雖然他們能給的待遇並不高，但歡迎大家跟他們聊聊天。
@@ -302,19 +302,19 @@ block content
       .sponsor
         .brand: a(href="http://artbloom.co/works/the-starry-night/",target="_blank"): img(src="img/ally/artbloom.png")
         .desc 線上買藝術品
-      |  &nbsp; &nbsp; 
+      |  &nbsp; &nbsp;
       .sponsor
         .brand: a(href="http://www.flyingv.cc/project/2748",target="_blank"): img(src="img/ally/monster.png")
         .desc 怪獸社區
-      |  
+      |
       .sponsor
         .brand: a(href="http://foundi.info/",target="_blank"): img(src="img/ally/foundi.png")
         .desc 打破資訊不對等
-      |  
+      |
       .sponsor
         .brand: a(href="http://sentri.me",target="_blank"): img(src="img/ally/sentri.png")
         .desc Kickstarter 成功募資上千萬
-      |  
+      |
       .sponsor
         .brand: a(href="http://sisgo.com.tw",target="_blank"): img(src="img/ally/sisgo.png")
         .desc 合購自己來
