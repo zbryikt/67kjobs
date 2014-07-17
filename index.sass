@@ -47,6 +47,21 @@ html,body
 #new-job
   width: 70%
   margin: auto
+  .taller
+    margin-bottom: 20px
+    .text-center
+      text-align: left
+
+
+@media (max-width: 800px)
+  #new-job .col-sm-3
+    text-align: left
+  #new-job .taller
+    margin-bottom: 10px
+    .form-group
+      margin-bottom: 0
+    .text-center
+      text-align: center
 
 .needfix .ng-invalid
   border-color: #f31
@@ -81,6 +96,34 @@ html,body
 .head .job
   margin-bottom: 0
   border-bottom: none
+
+@media (max-width: 1000px)
+  .job
+    white-space: nowrap
+    .cell.title
+      white-space: nowrap
+      width: 330px
+      overflow: hidden
+      text-overflow: ellipsis
+
+@media (max-width: 800px)
+  #joblist      
+    .list-group-item
+      padding: 0
+    .job
+      margin-bottom: 0
+      padding: 10px 10px 5px
+      border-bottom: none
+    .job:nth-of-type(2n)
+      background: #eee
+    .cell
+      width: 100%!important
+      display: block
+    .cell.time
+      margin-top: -45px
+    .cell.time, .cell.rank
+      font-size: 0.5em
+
 
 .ranker
   background: #fff
@@ -161,7 +204,7 @@ html,body
     font-weight: 900
     color: #fff
     padding: 1% 10% 1% 1%
-    margin-top: 20px
+    margin-top: 6%
     text-align: right
     text-shadow: 0 0 4px rgba(0,0,0,1)
 @media (max-width: 1000px)
@@ -197,6 +240,10 @@ html,body
   background-repeat: no-repeat
   background-position: center center
   background-size: cover
+
+@media (max-width: 660px)
+  #logo
+    opacity: 0.4
 
 @media (max-width: 1200px)
   #logo
@@ -273,3 +320,8 @@ blockquote.pre
     display: block
   .desc
     font-size: 0.8em
+
+@media (max-width: 800px)
+  .sponsor
+    width: 100%
+    margin-bottom: 30px

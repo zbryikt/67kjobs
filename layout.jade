@@ -38,6 +38,7 @@ html(lang="en")
             .pic(ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)")
             | {{user.displayName}}
           li(ng-show="user"): a(ng-click="logout()") 登出
+
     #root
       #fb-root
       script.

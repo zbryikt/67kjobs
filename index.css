@@ -44,7 +44,21 @@ html, body {
 #new-job {
   width: 70%;
   margin: auto; }
+  #new-job .taller {
+    margin-bottom: 20px; }
+    #new-job .taller .text-center {
+      text-align: left; }
 
+@media (max-width: 800px) {
+  #new-job .col-sm-3 {
+    text-align: left; }
+
+  #new-job .taller {
+    margin-bottom: 10px; }
+    #new-job .taller .form-group {
+      margin-bottom: 0; }
+    #new-job .taller .text-center {
+      text-align: center; } }
 .needfix .ng-invalid {
   border-color: #ff3311; }
 
@@ -81,6 +95,30 @@ html, body {
   margin-bottom: 0;
   border-bottom: none; }
 
+@media (max-width: 1000px) {
+  .job {
+    white-space: nowrap; }
+    .job .cell.title {
+      white-space: nowrap;
+      width: 330px;
+      overflow: hidden;
+      text-overflow: ellipsis; } }
+@media (max-width: 800px) {
+  #joblist .list-group-item {
+    padding: 0; }
+  #joblist .job {
+    margin-bottom: 0;
+    padding: 10px 10px 5px;
+    border-bottom: none; }
+  #joblist .job:nth-of-type(2n) {
+    background: #eeeeee; }
+  #joblist .cell {
+    width: 100% !important;
+    display: block; }
+  #joblist .cell.time {
+    margin-top: -45px; }
+  #joblist .cell.time, #joblist .cell.rank {
+    font-size: 0.5em; } }
 .ranker {
   background: white;
   border-radius: 5px;
@@ -257,7 +295,7 @@ html, body {
     font-weight: 900;
     color: white;
     padding: 1% 10% 1% 1%;
-    margin-top: 20px;
+    margin-top: 6%;
     text-align: right;
     text-shadow: 0 0 4px black; }
 
@@ -329,6 +367,9 @@ html, body {
   background-position: center center;
   background-size: cover; }
 
+@media (max-width: 660px) {
+  #logo {
+    opacity: 0.4; } }
 @media (max-width: 1200px) {
   #logo {
     width: 300px;
@@ -407,3 +448,8 @@ blockquote.pre {
     display: block; }
   .sponsor .desc {
     font-size: 0.8em; }
+
+@media (max-width: 800px) {
+  .sponsor {
+    width: 100%;
+    margin-bottom: 30px; } }
