@@ -55,9 +55,10 @@ block content
             h4 
               | 職缺 / {{curjob.title}} 
               .small(style="display:inline-block") - {{curjob.company}}
+            .small.blue {{curjob.jobtype.name}} / {{curjob.jobname.name}}
           .modal-body
             i.glyphicon.glyphicon-briefcase.green
-            |  公司名稱: {{curjob.company}}
+            |  公司名稱 - {{curjob.company}}
             span(ng-if="curjob.url")
               |  ( 
               i.glyphicon.glyphicon-globe.blue
@@ -66,10 +67,13 @@ block content
               |  )
             br
             i.glyphicon.glyphicon-calendar.blue
-            |  刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}
+            |  刊登日期 - {{curjob.time|date:'yyyy-MM-dd HH:mm '}}
             br
             i.glyphicon.glyphicon-map-marker.red
-            |  工作地點: {{curjob.location}}
+            |  工作地點 - {{curjob.location}}
+            br
+            i.glyphicon.glyphicon-info-sign.gray
+            |  工作分類 - {{curjob.jobtype.name}} / {{curjob.jobname.name}}
             br
             i.glyphicon.glyphicon-envelope.orange
             |  履歷請寄至 

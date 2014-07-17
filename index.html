@@ -106,8 +106,9 @@
                   <h4>職缺 / {{curjob.title}} 
                     <div style="display:inline-block" class="small">- {{curjob.company}}</div>
                   </h4>
+                  <div class="small blue">{{curjob.jobtype.name}} / {{curjob.jobname.name}}</div>
                 </div>
-                <div class="modal-body"><i class="glyphicon glyphicon-briefcase green"></i> 公司名稱: {{curjob.company}}<span ng-if="curjob.url"> ( <i class="glyphicon glyphicon-globe blue"></i> <a href="{{curjob.url}}" target="_blank">公司網站</a> )</span><br><i class="glyphicon glyphicon-calendar blue"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope orange"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
+                <div class="modal-body"><i class="glyphicon glyphicon-briefcase green"></i> 公司名稱 - {{curjob.company}}<span ng-if="curjob.url"> ( <i class="glyphicon glyphicon-globe blue"></i> <a href="{{curjob.url}}" target="_blank">公司網站</a> )</span><br><i class="glyphicon glyphicon-calendar blue"></i> 刊登日期 - {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點 - {{curjob.location}}<br><i class="glyphicon glyphicon-info-sign gray"></i> 工作分類 - {{curjob.jobtype.name}} / {{curjob.jobname.name}}<br><i class="glyphicon glyphicon-envelope orange"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
                   <hr>
                   <h4 class="text-center">薪資待遇(月薪)</h4>
                   <div class="row">

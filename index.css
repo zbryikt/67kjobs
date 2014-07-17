@@ -434,8 +434,7 @@ hr.color {
   margin-left: 5px; }
 
 blockquote.pre {
-  white-space: pre;
-  overflow-x: scroll; }
+  white-space: pre-wrap; }
 
 .modal-dialog {
   width: 80%;
