@@ -107,7 +107,7 @@
                     <div style="display:inline-block" class="small">- {{curjob.company}}</div>
                   </h4>
                 </div>
-                <div class="modal-body"><i class="glyphicon glyphicon-briefcase green"></i> 公司名稱: {{curjob.company}}<br><i class="glyphicon glyphicon-calendar blue"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope orange"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
+                <div class="modal-body"><i class="glyphicon glyphicon-briefcase green"></i> 公司名稱: {{curjob.company}}<span ng-if="curjob.url"> ( <i class="glyphicon glyphicon-globe blue"></i> <a href="{{curjob.url}}" target="_blank">公司網站</a> )</span><br><i class="glyphicon glyphicon-calendar blue"></i> 刊登日期: {{curjob.time|date:'yyyy-MM-dd HH:mm '}}<br><i class="glyphicon glyphicon-map-marker red"></i> 工作地點: {{curjob.location}}<br><i class="glyphicon glyphicon-envelope orange"></i> 履歷請寄至 <a href="{{curjob.email}}">{{curjob.email}}</a>
                   <hr>
                   <h4 class="text-center">薪資待遇(月薪)</h4>
                   <div class="row">
@@ -159,7 +159,7 @@
                     <div ng-class="{'blue':j[1].salary1&lt;70000,'green':j[1].salary1&gt;=70000 &amp;&amp; j[1].salary1&lt;80000,'yellow':j[1].salary1&gt;=80000 &amp;&amp; j[1].salary1&lt;100000,'orange':j[1].salary1&gt;=100000 &amp;&amp; j[1].salary1&lt;150000,'red':j[1].salary1&gt;=150000}" class="ranker"></div>{{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
                   </div>
                   <div class="cell title"><a ng-click="detail(j[1])">{{j[1].title}}</a>
-                    <div class="small"> (  <a href="{{j[1].url}}">{{j[1].company}}</a> ) </div>
+                    <div class="small"> (  <a ng-if="j[1].url" href="//{{j[1].url}}">{{j[1].company}}</a><span ng-if="!j[1].url">{{j[1].company}}</span> ) </div>
                   </div>
                   <div class="cell time">{{j[1].time|date:'yyyy-MM-dd'}} <img ng-if="j[1].owner.id" ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture"> <i ng-show="{{user.id=='10151905053907168'}}" ng-click="remove(j)" class="glyphicon glyphicon-remove red"></i></div>
                 </div>
