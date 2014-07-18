@@ -465,3 +465,18 @@ blockquote.pre {
   .sponsor {
     width: 100%;
     margin-bottom: 30px; } }
+h3.qa .glyphicon {
+  font-size: 20px;
+  vertical-align: middle; }
+
+.q {
+  margin-bottom: 10px; }
+  .q:before {
+    content: "Q: ";
+    margin-left: -20px; }
+
+.a {
+  margin-bottom: 20px; }
+  .a:before {
+    content: "A: ";
+    margin-left: -18px; }
