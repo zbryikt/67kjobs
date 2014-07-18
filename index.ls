@@ -46,9 +46,11 @@ angular.module \jobs, <[firebase]>
           if !$scope.db-ref[name] => $scope.db-ref[name] = new Firebase "https://joblist.firebaseio.com/cat#id"
           @[name] = $firebase $scope.db-ref[name]
         @[name].$on \loaded, (v) -> $scope.$apply ->
-          $scope.data[id] = update v
+          #$scope.data[id] = update(v)
+          $scope.data[id] = update(v)slice!reverse!
         @[name].$on \change, (v) ~> if v and $scope.data[id]!=undefined =>
-          $scope.$apply ~> $scope.data[id].push [v, @[name][v]]
+          #$scope.$apply ~> $scope.data[id].push [v, @[name][v]]
+          $scope.$apply ~> $scope.data[id] = [[v, @[name][v]]] ++ $scope.data[id]
         @[name]
     $scope.datasrc.get {id:0, name:"all"}
     $scope.data = {}

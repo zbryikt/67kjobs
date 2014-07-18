@@ -76,13 +76,13 @@ x$.controller('index', function($scope, $timeout, $firebase){
       }
       this[name].$on('loaded', function(v){
         return $scope.$apply(function(){
-          return $scope.data[id] = update(v);
+          return $scope.data[id] = update(v).slice().reverse();
         });
       });
       this[name].$on('change', function(v){
         if (v && $scope.data[id] !== undefined) {
           return $scope.$apply(function(){
-            return $scope.data[id].push([v, this$[name][v]]);
+            return $scope.data[id] = [[v, this$[name][v]]].concat($scope.data[id]);
           });
         }
       });
