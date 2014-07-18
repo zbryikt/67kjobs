@@ -43,6 +43,9 @@ html, body {
     font-size: 0.5em;
     margin-right: 10%; }
 
+@media (max-width: 800px) {
+  .quote {
+    font-size: 2em; } }
 #new-job {
   width: 70%;
   margin: auto; }
@@ -376,7 +379,8 @@ html, body {
 
 @media (max-width: 660px) {
   #logo {
-    opacity: 0.4; } }
+    opacity: 0.4;
+    display: none; } }
 @media (max-width: 1200px) {
   #logo {
     width: 300px;
