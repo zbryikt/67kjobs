@@ -63,6 +63,7 @@ angular.module \jobs, <[firebase]>
     $scope.detail = (j) ->
       $scope.curjob = j
       setTimeout (->$(\#job-detail-modal).modal("show")), 0
+
     $scope.remove = (job) ->
       console.log "removing..."
       src = $scope.datasrc.get if $scope.jobtab => $scope.jobtab else {id: 0, name: "all"}
@@ -89,3 +90,67 @@ angular.module \jobs, <[firebase]>
       console.log "job added"
       $scope.waitreload = true
       $timeout (-> $scope.waitreload = false), 1000
+
+    # message system
+    $scope.msg = do
+      db: do
+        all: ref: {}, data: {}
+        msg: ref: {}, data: {}
+        mtd: ref: {}, data: {}
+        mta: ref: {}, data: {}
+      newmsg: 0
+      getnewmsg: ->
+        @newmsg = 0
+        for k,v of @db.all.data => @newmsg += v.newmsg
+      init: ->
+        @db.all.ref = $firebase new Firebase "https://joblist.firebaseio.com/msgmeta/#{$scope.user.id}/"
+        @db.all.ref.$on \loaded, (v) ~>
+          @db.all.data = v or {}
+          @getnewmsg!
+        @db.all.ref.$on \change, (v) ~> 
+          if v =>
+            @db.all.data[v] = @db.all.ref[v]
+            @getnewmsg!
+      key: null
+      get: (atk, def) ->
+        [a,b] = if atk.id < def.id => [atk,def] else [def,atk]
+        key = "#{a.id}+#{b.id}"
+        @db.msg.ref[key] = $firebase new Firebase "https://joblist.firebaseio.com/msg/#{a.id}/#{b.id}/"
+        @db.mtd.ref[key] = $firebase new Firebase "https://joblist.firebaseio.com/msgmeta/#{def.id}/#{atk.id}/"
+        @db.mta.ref[key] = $firebase new Firebase "https://joblist.firebaseio.com/msgmeta/#{atk.id}/#{def.id}/"
+        @db.mtd.ref[key].$on \loaded, (v) ~> @db.mtd.data[key] = v
+        @db.mta.ref[key].$on \loaded, (v) ~> @db.mta.data[key] = v
+        @db.msg.ref[key].$on \loaded, (v) ~> @db.msg.data[key] = update(v)slice!reverse!
+        @db.msg.ref[key].$on \change, (v) ~> if !@db.msg.data[][key].filter(->it.0==v)length =>
+          @db.msg.data[key] = [[v,@db.msg.ref[key][v]]] ++ @db.msg.data[key]
+        key
+      send: ->
+        if !@content => return
+        key = @get @atk, @def
+        payload = {msg: @content, time: new Date!getTime!, author: @atk.id}
+        @db.msg.ref[key].$add payload
+        @db.mtd.ref[key].$update (@db.mtd.data[key] or {}) <<< do
+          {newmsg: ((@db.mtd.data.{}[key].newmsg or 0) + 1), user: {displayName: @atk.displayName, id: @atk.id}}
+        @db.mta.ref[key].$update (@db.mta.data[key] or {}) <<< do
+          {newmsg: 0, user: {displayName: @def.displayName, id: @def.id}}
+        @getnewmsg!
+        @content = ""
+        console.log "message sent."
+
+      show: (atk, def) ->
+        if !(atk and def) => return
+        $scope.msg <<< {atk, def}
+        @key = $scope.msg.get atk, def
+        @db.mta.ref[@key].$update (@db.mta.data[@key] or {}) <<< do
+          {newmsg: 0, user: {displayName: @def.displayName, id: @def.id}}
+        @getnewmsg!
+        setTimeout (-> $(\#msg-modal).modal("show")), 0
+    $('#msg-modal').on 'hide.bs.modal', -> 
+      m = $scope.msg
+      if !(m.atk and m.def) => return
+      key = m.get m.atk, m.def
+      m.db.mta.ref[key].$update (m.db.mta.data[key] or {}) <<< do
+        {newmsg: 0, user: {displayName: m.def.displayName, id: m.def.id}}
+      m.getnewmsg!
+
+    $scope.$watch 'user' -> if it => $scope.msg.init!

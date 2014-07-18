@@ -1,0 +1,65 @@
+#job-detail-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type="button",data-dismiss="modal")
+          span(aria-hidden="true") &times;
+          span.sr-only Close
+        h4 
+          | 職缺 / {{curjob.title}} 
+          .small(style="display:inline-block") - {{curjob.company}}
+        .small.blue {{curjob.jobtype.name}} / {{curjob.jobname.name}}
+      .modal-body
+        i.glyphicon.glyphicon-briefcase.green
+        |  公司名稱 - {{curjob.company}}
+        span(ng-if="curjob.url")
+          |  ( 
+          i.glyphicon.glyphicon-globe.blue
+          |  
+          a(href="{{curjob.url}}",target="_blank") 公司網站
+          |  )
+        br
+        i.glyphicon.glyphicon-calendar.blue
+        |  刊登日期 - {{curjob.time|date:'yyyy-MM-dd HH:mm '}}
+        br
+        i.glyphicon.glyphicon-map-marker.red
+        |  工作地點 - {{curjob.location}}
+        br
+        i.glyphicon.glyphicon-info-sign.gray
+        |  工作分類 - {{curjob.jobtype.name}} / {{curjob.jobname.name}}
+        br
+        i.glyphicon.glyphicon-envelope.orange
+        |  履歷請寄至 
+        a(href="{{curjob.email}}") {{curjob.email}}
+        hr
+        h4.text-center 薪資待遇(月薪)
+        .row: .col-sm-12.text-center(style="width:80%;margin:auto")
+          .btn.btn-lg.btn-block.btn-danger.text-center 
+            i.glyphicon.glyphicon-usd.white.small(style="vertical-align:middle")
+            span(ng-if="curjob.salary1!=curjob.salary2")  {{curjob.salary1}}元 ~ {{curjob.salary2}}元
+            span(ng-if="curjob.salary1==curjob.salary2")  {{curjob.salary1}}元
+          .label.label-primary(ng-show="curjob.signbonus")
+            i.glyphicon.glyphicon-usd
+            |  有簽約金
+          .label.label-warning(ng-show="curjob.techshare")
+            i.glyphicon.glyphicon-folder-close
+            |  有技術股
+          .label.label-danger(ng-show="curjob.stockright")
+            i.glyphicon.glyphicon-heart
+            |  員工可認股
+          .label.label-success(ng-show="curjob.annualbonus")
+            i.glyphicon.glyphicon-gift
+            |  年終獎金三個月以上
+        br
+        hr
+        h4
+          | 工作內容與需求
+          .small.pull-right {{curjob.title}}
+        blockquote.pre {{curjob.desc}}
+        hr
+        h4 
+          | 公司簡介
+          .small.pull-right {{curjob.company}}
+        blockquote.pre {{curjob.compdesc}}
+      .modal-footer
+        button.btn.btn-default(type="button",data-dismiss="modal") 關閉

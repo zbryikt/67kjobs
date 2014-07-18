@@ -62,8 +62,14 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
           <li ng-show="!user"><a ng-click="login()">以臉書登入</a></li>
+          <li ng-show="user" ng-class="{'active':msg.newmsg}" class="dropdown nav-msg"><a data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-comment"></i></a>
+            <ul role="menu" class="dropdown-menu">
+              <li ng-repeat="d in msg.db.all.data"><a ng-click="msg.show(user, d.user)">
+                  <div ng-if="d.newmsg" class="badge pull-right active">{{d.newmsg}}</div>{{d.user.displayName || "???"}}</a></li>
+            </ul>
+          </li>
           <li ng-show="user" class="avatar"><a>
-              <div ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)" class="pic"></div>{{user.displayName}}</a></li>
+              <div ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)" class="pic"></div><span style="vertical-align:middle">{{user.displayName}}</span></a></li>
           <li ng-show="user"><a ng-click="logout()">登出</a></li>
         </ul>
       </div>
@@ -160,6 +166,42 @@
               </div>
             </div>
           </div>
+          <div id="msg-modal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4>線上對談</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div ng-if="!user" ng-click="login()" class="btn btn-warning btn-block btn-large btn-rad">按此以臉書登入後即可對話</div>
+                    <div class="chat">
+                      <div class="avatar"><img ng-attr-src="http://graph.facebook.com/{{user.id}}/picture"></div>
+                      <div class="form-group">
+                        <textarea ng-model="msg.content" class="form-control"></textarea>
+                      </div>
+                    </div><br>
+                    <div ng-disabled="msg.content==''" ng-click="msg.send()" class="btn btn-primary pull-right">送出訊息</div><br class="clear">
+                  </form>
+                  <hr>
+                  <div class="chatlist">
+                    <div ng-repeat="m in (msg.db.msg.data[msg.key] || [])" class="list-group-item">
+                      <div class="chat">
+                        <div ng-if="m[1].author" class="avatar"><img ng-attr-src="http://graph.facebook.com/{{m[1].author}}/picture"></div>
+                        <div class="msg">
+                          <div class="pull-right small gray">{{m[1].time|date:'yyyy-MM-dd HH:mm:ss'}}</div>{{m[1].msg}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" data-dismiss="modal" class="btn btn-default">關閉</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <hr class="color orange"><br>
           <div id="joblist">
             <h3><i class="glyphicon glyphicon-list orange"></i> 職缺列表
@@ -178,14 +220,14 @@
                 </div>
               </div>
               <div class="list-group-item">
-                <div ng-repeat="j in data[jobtab.id || 0]" class="job">
+                <div ng-repeat="j in data[jobtab.id || 0]" ng-if="!j[1].hide" class="job">
                   <div class="cell rank">
                     <div ng-class="{'blue':j[1].salary1&lt;70000,'green':j[1].salary1&gt;=70000 &amp;&amp; j[1].salary1&lt;80000,'yellow':j[1].salary1&gt;=80000 &amp;&amp; j[1].salary1&lt;100000,'orange':j[1].salary1&gt;=100000 &amp;&amp; j[1].salary1&lt;150000,'red':j[1].salary1&gt;=150000}" class="ranker"></div><span ng-if="j[1].salary1==j[1].salary2">{{j[1].salary1|tok}}</span><span ng-if="j[1].salary1!=j[1].salary2">{{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}</span>
                   </div>
                   <div class="cell title"><a ng-click="detail(j[1])">{{j[1].title}}</a>
                     <div class="small"> (  <a ng-if="j[1].url" href="//{{j[1].url}}">{{j[1].company}}</a><span ng-if="!j[1].url">{{j[1].company}}</span> ) </div>
                   </div>
-                  <div class="cell time">{{j[1].time|date:'yyyy-MM-dd'}} <img ng-if="j[1].owner.id" ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture"> <i ng-show="{{user.id=='10151905053907168'}}" ng-click="remove(j)" class="glyphicon glyphicon-remove red"></i></div>
+                  <div class="cell time">{{j[1].time|date:'yyyy-MM-dd'}} <a ng-click="msg.show(user, j[1].owner)"><img ng-if="j[1].owner.id" ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture"></a> <i ng-show="{{user.id=='10151905053907168'}}" ng-click="remove(j)" class="glyphicon glyphicon-remove red"></i></div>
                 </div>
               </div>
             </div>

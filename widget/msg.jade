@@ -1,0 +1,29 @@
+#msg-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type="button",data-dismiss="modal")
+          span(aria-hidden="true") &times;
+          span.sr-only Close
+        h4 線上對談
+      .modal-body
+        form
+          .btn.btn-warning.btn-block.btn-large.btn-rad(ng-if="!user",ng-click="login()") 按此以臉書登入後即可對話
+          .chat
+            .avatar: img(ng-attr-src="http://graph.facebook.com/{{user.id}}/picture")
+            .form-group
+              textarea.form-control(ng-model="msg.content")
+          br
+          .btn.btn-primary.pull-right(ng-disabled="msg.content==''",ng-click="msg.send()") 送出訊息
+          br.clear
+        hr
+        .chatlist
+          .list-group-item(ng-repeat="m in (msg.db.msg.data[msg.key] || [])")
+            .chat
+              .avatar(ng-if="m[1].author"): img(ng-attr-src="http://graph.facebook.com/{{m[1].author}}/picture")
+              .msg
+                .pull-right.small.gray {{m[1].time|date:'yyyy-MM-dd HH:mm:ss'}}
+                | {{m[1].msg}}
+
+      .modal-footer
+        button.btn.btn-default(type="button",data-dismiss="modal") 關閉

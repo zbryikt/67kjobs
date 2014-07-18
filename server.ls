@@ -215,8 +215,14 @@ update-file = ->
   [type,cmd] = [ftype(it), ""]
   if type == \other => return
   if type == \ls => cmd = "#{ls} -cb #{it}"
-  if type == \sass => cmd = "#{sass} #{it} #{it.replace /\.sass$/, \.css}"
-  if type == \jade => cmd = "#{jade} -P #{it}"
+  #if type == \sass => cmd = "#{sass} #{it} #{it.replace /\.sass$/, \.css}"
+  if type == \sass => cmd = "#{sass} index.sass index.css"
+  if type == \jade => 
+    if /widget\//.exec it => 
+      it = 'index.jade'
+      cmd = "#{jade} -P #{it}"
+    if /layout.jade/.exec it =>
+      cmd = "#{jade} -P index.jade; #{jade} -P privacy.jade; #{jade} -P eula.jade"
   if cmd =>
     console.log "[BUILD] #{cmd}"
     child_process.exec cmd, log

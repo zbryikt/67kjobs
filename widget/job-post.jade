@@ -1,0 +1,99 @@
+form#new-job(name="newjobform",novalidate,ng-class="{'needfix':needfix}")
+  h3 
+    i.glyphicon.glyphicon-edit.green
+    |  建立職缺
+  .small 任何刊登在此平台的職缺都必須要提供薪資範圍，並且最低值要高於六萬七千元 (新台幣)
+  hr
+  .row
+    .col-sm-3.text-right
+      h4 職缺 / 頭銜
+    .col-sm-9
+      input.form-control(name="title",type="text",ng-model="newjob.title",placeholder="例如，執行副理、保險業務助理、資深任體工程師等等",required,ng-minlength="3",ng-maxlength="35")
+  .row
+    .col-sm-3.text-right
+      h4 職業別
+    .col-sm-9
+      select.form-control(name="jobtype",ng-model="newjob.jobtype",ng-options="type.name for type in jobtypes",required)
+        option(value="") 請選取
+  .row
+    .col-sm-3.text-right
+      h4 職業名
+    .col-sm-9
+      select.form-control(name="jobname",ng-model="newjob.jobname",ng-options="job.name for job in jobs",required)
+        option(value="") 請選取
+  .row.taller
+    .col-sm-3.text-right
+      h4 月薪範圍
+    .col-sm-9.form-inline.text-center
+      .form-group
+        input.form-control(name="salary1",type="number",ng-model="newjob.salary1",placeholder="最低值，至少六萬七",required,ng-maxlength="9")
+      |  至
+      .form-group
+        input.form-control(name="salary2",type="number",ng-model="newjob.salary2",placeholder="最高值，如：990000",required,ng-maxlength="9")
+      span(style="white-space:nowrap")   (單位: 新台幣)
+  .row.taller
+    .col-sm-3.text-right
+      h4 額外獎金
+    .col-sm-9.form-inline.bonus
+      .form-group(style="margin-top: 6px")
+        .checkbox
+          label 
+            input(type="checkbox",name="signbonus",ng-model="newjob.signbonus")
+            i.glyphicon.glyphicon-usd.blue
+            |  簽約金 
+        .checkbox
+          label 
+            input(type="checkbox",name="techshare",ng-model="newjob.techshare")
+            i.glyphicon.glyphicon-folder-close.orange
+            |  技術股 
+        .checkbox
+          label 
+            input(type="checkbox",name="stockright",ng-model="newjob.stockright")
+            i.glyphicon.glyphicon-heart.red
+            |  員工認股 
+        .checkbox
+          label 
+            input(type="checkbox",name="annualbonus",ng-model="newjob.annualbonus")
+            i.glyphicon.glyphicon-gift.green
+            |  三個月以上年終獎金 
+  .row
+    .col-sm-3.text-right
+      h4 工作地點
+    .col-sm-9
+      input.form-control(name="location",type="text",ng-model="newjob.location",placeholder="例如：台北市、上海",required,ng-maxlength="30")
+  .row
+    .col-sm-3.text-right
+      h4 工作內容
+    .col-sm-9
+      textarea.form-control(name="desc",ng-model="newjob.desc",placeholder="請詳加描述你提供的職缺其工作內容跟需求(純文字排版)",style="min-height: 200px")
+  hr
+  .row
+    .col-sm-3.text-right
+      h4 公司名稱
+    .col-sm-9
+      input.form-control(name="company",type="text",ng-model="newjob.company",placeholder="例如：跑得慢股份有限公司",required,ng-maxlength="30")
+  .row
+    .col-sm-3.text-right
+      h4 公司介紹
+    .col-sm-9
+      textarea.form-control(name="compdesc",ng-model="newjob.compdesc",placeholder="請簡單描述職缺所在的公司(純文字排版)",style="min-height: 100px")
+  br
+  .row
+    .col-sm-3.text-right
+      h4 公司網址
+    .col-sm-9
+      input.form-control(name="url",type="text",ng-model="newjob.url",placeholder="例如：http://runsoslow.io")
+  .row
+    .col-sm-3.text-right
+      h4 電子郵件
+    .col-sm-9
+      input.form-control(name="email",type="email",ng-model="newjob.email",placeholder="例如: hr@runsoslow.io",required,ng-maxlength="30")
+      .small ( 收履歷用 )
+  hr
+  .row
+    .col-sm-3
+      .alert.alert-warning(ng-show="needfix") 表單有些問題，請修正再送出
+    .col-sm-9
+      .btn.btn-success.btn-rad.btn-block.btn-lg(ng-show="user",ng-click="submit()",ng-disabled="waitreload") 刊登求才啟示
+      .btn.btn-warning.btn-rad.btn-block.btn-lg(ng-show="!user",ng-click="login()") 按此登入後即可刊登
+

@@ -1,0 +1,7 @@
+.chat {
+  display: table; }
+  .chat .avatar {
+    display: table-cell;
+    width: 32px; }
+  .chat .form-group {
+    display: table-cell; }

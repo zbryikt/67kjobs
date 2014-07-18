@@ -1,4 +1,5 @@
 @import basic 
+@import msg
 
 html,body
   margin: 0
@@ -9,6 +10,12 @@ html,body
 
 .glyphicon
   vertical-align: text-top
+
+br.clear
+  clear: both
+
+.badge.active
+  background: #f02
 
 #root
   margin-top: 0
@@ -37,6 +44,10 @@ html,body
     background-position: center center
     background-repeat: no-repeat
     display: inline-block
+
+.navbar-inverse .navbar-nav > .nav-msg.active > a
+  background: rgba(255,0,0,0.5)
+  text-shadow: 0 0 10px rgba(255,255,0,1)
 
 .quote
   font-size: 3em
@@ -100,6 +111,7 @@ html,body
     img
       vertical-align: middle
       width: 24px
+      cursor: pointer
 .head .job
   margin-bottom: 0
   border-bottom: none

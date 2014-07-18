@@ -129,7 +129,7 @@ x$.controller('index', function($scope, $timeout, $firebase){
       });
     return src.$remove(job[0]);
   };
-  return $scope.submit = function(){
+  $scope.submit = function(){
     var check, t1, t2, now, ref1, ref2;
     check = ['jobname', 'salary2', 'salary1', 'company', 'email', 'jobtype', 'location', 'title'];
     t1 = $scope.newjobform.salary1;
@@ -164,4 +164,154 @@ x$.controller('index', function($scope, $timeout, $firebase){
       return $scope.waitreload = false;
     }, 1000);
   };
+  $scope.msg = {
+    db: {
+      all: {
+        ref: {},
+        data: {}
+      },
+      msg: {
+        ref: {},
+        data: {}
+      },
+      mtd: {
+        ref: {},
+        data: {}
+      },
+      mta: {
+        ref: {},
+        data: {}
+      }
+    },
+    newmsg: 0,
+    getnewmsg: function(){
+      var k, ref$, v, results$ = [];
+      this.newmsg = 0;
+      for (k in ref$ = this.db.all.data) {
+        v = ref$[k];
+        results$.push(this.newmsg += v.newmsg);
+      }
+      return results$;
+    },
+    init: function(){
+      var this$ = this;
+      this.db.all.ref = $firebase(new Firebase("https://joblist.firebaseio.com/msgmeta/" + $scope.user.id + "/"));
+      this.db.all.ref.$on('loaded', function(v){
+        this$.db.all.data = v || {};
+        return this$.getnewmsg();
+      });
+      return this.db.all.ref.$on('change', function(v){
+        if (v) {
+          this$.db.all.data[v] = this$.db.all.ref[v];
+          return this$.getnewmsg();
+        }
+      });
+    },
+    key: null,
+    get: function(atk, def){
+      var ref$, a, b, key, this$ = this;
+      ref$ = atk.id < def.id
+        ? [atk, def]
+        : [def, atk], a = ref$[0], b = ref$[1];
+      key = a.id + "+" + b.id;
+      this.db.msg.ref[key] = $firebase(new Firebase("https://joblist.firebaseio.com/msg/" + a.id + "/" + b.id + "/"));
+      this.db.mtd.ref[key] = $firebase(new Firebase("https://joblist.firebaseio.com/msgmeta/" + def.id + "/" + atk.id + "/"));
+      this.db.mta.ref[key] = $firebase(new Firebase("https://joblist.firebaseio.com/msgmeta/" + atk.id + "/" + def.id + "/"));
+      this.db.mtd.ref[key].$on('loaded', function(v){
+        return this$.db.mtd.data[key] = v;
+      });
+      this.db.mta.ref[key].$on('loaded', function(v){
+        return this$.db.mta.data[key] = v;
+      });
+      this.db.msg.ref[key].$on('loaded', function(v){
+        return this$.db.msg.data[key] = update(v).slice().reverse();
+      });
+      this.db.msg.ref[key].$on('change', function(v){
+        var ref$;
+        if (!((ref$ = this$.db.msg.data)[key] || (ref$[key] = [])).filter(function(it){
+          return it[0] === v;
+        }).length) {
+          return this$.db.msg.data[key] = [[v, this$.db.msg.ref[key][v]]].concat(this$.db.msg.data[key]);
+        }
+      });
+      return key;
+    },
+    send: function(){
+      var key, payload, ref$;
+      if (!this.content) {
+        return;
+      }
+      key = this.get(this.atk, this.def);
+      payload = {
+        msg: this.content,
+        time: new Date().getTime(),
+        author: this.atk.id
+      };
+      this.db.msg.ref[key].$add(payload);
+      this.db.mtd.ref[key].$update(import$(this.db.mtd.data[key] || {}, {
+        newmsg: (((ref$ = this.db.mtd.data)[key] || (ref$[key] = {})).newmsg || 0) + 1,
+        user: {
+          displayName: this.atk.displayName,
+          id: this.atk.id
+        }
+      }));
+      this.db.mta.ref[key].$update(import$(this.db.mta.data[key] || {}, {
+        newmsg: 0,
+        user: {
+          displayName: this.def.displayName,
+          id: this.def.id
+        }
+      }));
+      this.getnewmsg();
+      this.content = "";
+      return console.log("message sent.");
+    },
+    show: function(atk, def){
+      var ref$;
+      if (!(atk && def)) {
+        return;
+      }
+      ref$ = $scope.msg;
+      ref$.atk = atk;
+      ref$.def = def;
+      this.key = $scope.msg.get(atk, def);
+      this.db.mta.ref[this.key].$update(import$(this.db.mta.data[this.key] || {}, {
+        newmsg: 0,
+        user: {
+          displayName: this.def.displayName,
+          id: this.def.id
+        }
+      }));
+      this.getnewmsg();
+      return setTimeout(function(){
+        return $('#msg-modal').modal("show");
+      }, 0);
+    }
+  };
+  $('#msg-modal').on('hide.bs.modal', function(){
+    var m, key;
+    m = $scope.msg;
+    if (!(m.atk && m.def)) {
+      return;
+    }
+    key = m.get(m.atk, m.def);
+    m.db.mta.ref[key].$update(import$(m.db.mta.data[key] || {}, {
+      newmsg: 0,
+      user: {
+        displayName: m.def.displayName,
+        id: m.def.id
+      }
+    }));
+    return m.getnewmsg();
+  });
+  return $scope.$watch('user', function(it){
+    if (it) {
+      return $scope.msg.init();
+    }
+  });
 });
+function import$(obj, src){
+  var own = {}.hasOwnProperty;
+  for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+  return obj;
+}

@@ -1,4 +1,25 @@
 @charset "UTF-8";
+.chat {
+  display: table;
+  width: 100%; }
+  .chat .avatar {
+    display: table-cell;
+    width: 32px;
+    vertical-align: top; }
+    .chat .avatar img {
+      margin-right: 10px; }
+  .chat .form-group {
+    display: table-cell; }
+    .chat .form-group textarea {
+      height: 80px;
+      width: 100%; }
+  .chat .msg {
+    display: table-cell; }
+
+.chatlist {
+  height: 300px;
+  overflow-y: scroll; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -8,6 +29,12 @@ html, body {
 
 .glyphicon {
   vertical-align: text-top; }
+
+br.clear {
+  clear: both; }
+
+.badge.active {
+  background: #ff0022; }
 
 #root {
   margin-top: 0;
@@ -35,6 +62,10 @@ html, body {
   background-position: center center;
   background-repeat: no-repeat;
   display: inline-block; }
+
+.navbar-inverse .navbar-nav > .nav-msg.active > a {
+  background: rgba(255, 0, 0, 0.5);
+  text-shadow: 0 0 10px yellow; }
 
 .quote {
   font-size: 3em;
@@ -97,7 +128,8 @@ html, body {
     width: 120px; }
     .job .time img {
       vertical-align: middle;
-      width: 24px; }
+      width: 24px;
+      cursor: pointer; }
 
 .head .job {
   margin-bottom: 0;

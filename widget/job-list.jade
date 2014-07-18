@@ -1,0 +1,37 @@
+#joblist
+  h3
+    i.glyphicon.glyphicon-list.orange
+    |  職缺列表
+    select.input-lg(ng-model="jobtab", ng-options="type.name for type in jobtypes")
+      option(value="") 全部
+  .list-group
+    .list-group-item.head
+      .job
+        .cell.rank 
+          .ranker
+          | 薪資
+        .cell.title 職缺
+        .cell.time
+          | 刊登時間 
+          i.glyphicon.glyphicon-user
+
+    .list-group-item
+      .job(ng-repeat="j in data[jobtab.id || 0]",ng-if="!j[1].hide")
+        .cell.rank
+          .ranker(ng-class="{'blue':j[1].salary1<70000,'green':j[1].salary1>=70000 && j[1].salary1<80000,'yellow':j[1].salary1>=80000 && j[1].salary1<100000,'orange':j[1].salary1>=100000 && j[1].salary1<150000,'red':j[1].salary1>=150000}")
+          span(ng-if="j[1].salary1==j[1].salary2") {{j[1].salary1|tok}}
+          span(ng-if="j[1].salary1!=j[1].salary2") {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+          //-| {{j[1].salary1|tok}} ~ {{j[1].salary2|tok}}
+        .cell.title 
+          a(ng-click="detail(j[1])") {{j[1].title}}
+          .small
+            |  (  
+            a(ng-if="j[1].url",href="//{{j[1].url}}") {{j[1].company}}
+            span(ng-if="!j[1].url") {{j[1].company}}
+            |  ) 
+        .cell.time 
+          | {{j[1].time|date:'yyyy-MM-dd'}} 
+          a(ng-click="msg.show(user, j[1].owner)"): img(ng-if="j[1].owner.id",ng-attr-src="http://graph.facebook.com/{{j[1].owner.id}}/picture")
+          |  
+          i.glyphicon.glyphicon-remove.red(ng-show="{{user.id=='10151905053907168'}}",ng-click="remove(j)")
+

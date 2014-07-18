@@ -62,8 +62,14 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
           <li ng-show="!user"><a ng-click="login()">以臉書登入</a></li>
+          <li ng-show="user" ng-class="{'active':msg.newmsg}" class="dropdown nav-msg"><a data-toggle="dropdown" class="dropdown-toggle"><i class="glyphicon glyphicon-comment"></i></a>
+            <ul role="menu" class="dropdown-menu">
+              <li ng-repeat="d in msg.db.all.data"><a ng-click="msg.show(user, d.user)">
+                  <div ng-if="d.newmsg" class="badge pull-right active">{{d.newmsg}}</div>{{d.user.displayName || "???"}}</a></li>
+            </ul>
+          </li>
           <li ng-show="user" class="avatar"><a>
-              <div ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)" class="pic"></div>{{user.displayName}}</a></li>
+              <div ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)" class="pic"></div><span style="vertical-align:middle">{{user.displayName}}</span></a></li>
           <li ng-show="user"><a ng-click="logout()">登出</a></li>
         </ul>
       </div>

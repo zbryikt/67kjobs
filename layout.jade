@@ -56,9 +56,16 @@ html(lang="en")
         ul.nav.navbar-nav.pull-right
           li(ng-show="!user")
             a(ng-click="login()") 以臉書登入
+          li.dropdown.nav-msg(ng-show="user",ng-class="{'active':msg.newmsg}")
+            a.dropdown-toggle(data-toggle="dropdown"): i.glyphicon.glyphicon-comment
+            ul.dropdown-menu(role="menu")
+              li(ng-repeat="d in msg.db.all.data"): a(ng-click="msg.show(user, d.user)")
+                .badge.pull-right.active(ng-if="d.newmsg") {{d.newmsg}}
+                | {{d.user.displayName || "???"}}
+
           li.avatar(ng-show="user"): a 
             .pic(ng-attr-style="background-image:url(http://graph.facebook.com/{{user.id}}/picture)")
-            | {{user.displayName}}
+            span(style="vertical-align:middle") {{user.displayName}}
           li(ng-show="user"): a(ng-click="logout()") 登出
 
     #root
