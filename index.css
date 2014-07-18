@@ -52,6 +52,9 @@ html, body {
       text-align: left; }
 
 @media (max-width: 800px) {
+  #new-job {
+    width: 94%; }
+
   #new-job .col-sm-3 {
     text-align: left; }
 
@@ -106,21 +109,23 @@ html, body {
       overflow: hidden;
       text-overflow: ellipsis; } }
 @media (max-width: 800px) {
-  #joblist .list-group-item {
-    padding: 0; }
-  #joblist .job {
-    margin-bottom: 0;
-    padding: 10px 10px 5px;
-    border-bottom: none; }
-  #joblist .job:nth-of-type(2n) {
-    background: #eeeeee; }
-  #joblist .cell {
-    width: 100% !important;
-    display: block; }
-  #joblist .cell.time {
-    margin-top: -45px; }
-  #joblist .cell.time, #joblist .cell.rank {
-    font-size: 0.5em; } }
+  #joblist {
+    width: 94%; }
+    #joblist .list-group-item {
+      padding: 0; }
+    #joblist .job {
+      margin-bottom: 0;
+      padding: 10px 10px 5px;
+      border-bottom: none; }
+    #joblist .job:nth-of-type(2n) {
+      background: #eeeeee; }
+    #joblist .cell {
+      width: 100% !important;
+      display: block; }
+    #joblist .cell.time {
+      margin-top: -45px; }
+    #joblist .cell.time, #joblist .cell.rank {
+      font-size: 0.5em; } }
 .ranker {
   background: white;
   border-radius: 5px;
