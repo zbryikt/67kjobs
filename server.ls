@@ -221,8 +221,9 @@ update-file = ->
     if /widget\//.exec it => 
       it = 'index.jade'
       cmd = "#{jade} -P #{it}"
-    if /layout.jade/.exec it =>
+    else if /layout.jade/.exec it =>
       cmd = "#{jade} -P index.jade; #{jade} -P privacy.jade; #{jade} -P eula.jade"
+    else cmd = "#{jade} -P #{it}"
   if cmd =>
     console.log "[BUILD] #{cmd}"
     child_process.exec cmd, log
