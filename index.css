@@ -34,7 +34,7 @@ br.clear {
   clear: both; }
 
 .badge.active {
-  background: #ff0022; }
+  background: #f02; }
 
 #root {
   margin-top: 0;
@@ -99,7 +99,7 @@ br.clear {
     #new-job .taller .text-center {
       text-align: center; } }
 .needfix .ng-invalid {
-  border-color: #ff3311; }
+  border-color: #f31; }
 
 #joblist {
   width: 80%;
@@ -109,7 +109,7 @@ br.clear {
 .job {
   font-size: 0.75em;
   margin-bottom: 10px;
-  border-bottom: 1px dashed #eeeeee; }
+  border-bottom: 1px dashed #eee; }
   .job .cell {
     display: inline-block; }
   .job .rank {
@@ -153,7 +153,7 @@ br.clear {
       padding: 10px 10px 5px;
       border-bottom: none; }
     #joblist .job:nth-of-type(2n) {
-      background: #eeeeee; }
+      background: #eee; }
     #joblist .cell {
       width: 100% !important;
       display: block; }
@@ -162,7 +162,7 @@ br.clear {
     #joblist .cell.time, #joblist .cell.rank {
       font-size: 0.5em; } }
 .ranker {
-  background: white;
+  background: #fff;
   border-radius: 5px;
   width: 16px;
   height: 16px;
@@ -171,141 +171,109 @@ br.clear {
   display: inline-block; }
 
 .ranker.blue {
-  background: #1144ff; }
+  background: #14f; }
 
 .ranker.green {
-  background: #229911; }
+  background: #291; }
 
 .ranker.yellow {
-  background: yellow; }
+  background: #ff0; }
 
 .ranker.orange {
-  background: #ff9922; }
+  background: #f92; }
 
 .ranker.red {
-  background: #ff4411; }
+  background: #f41; }
 
 .list-group-item.head {
-  background: #444444;
-  color: white; }
+  background: #444;
+  color: #fff; }
 
 @-webkit-keyframes carousel {
   0% {
     opacity: 0; }
-
   7% {
     opacity: 0; }
-
   20% {
     opacity: 0; }
-
   25% {
     opacity: 1; }
-
   50% {
     opacity: 1; }
-
   55% {
     opacity: 0; }
-
   75% {
     opacity: 0; }
-
   100% {
     opacity: 0; } }
-
 @-moz-keyframes carousel {
   0% {
     opacity: 0; }
-
   7% {
     opacity: 0; }
-
   20% {
     opacity: 0; }
-
   25% {
     opacity: 1; }
-
   50% {
     opacity: 1; }
-
   55% {
     opacity: 0; }
-
   75% {
     opacity: 0; }
-
   100% {
     opacity: 0; } }
-
 @-ms-keyframes carousel {
   0% {
     opacity: 0; }
-
   7% {
     opacity: 0; }
-
   20% {
     opacity: 0; }
-
   25% {
     opacity: 1; }
-
   50% {
     opacity: 1; }
-
   55% {
     opacity: 0; }
-
   75% {
     opacity: 0; }
-
   100% {
     opacity: 0; } }
-
 @keyframes carousel {
   0% {
     opacity: 0; }
-
   7% {
     opacity: 0; }
-
   20% {
     opacity: 0; }
-
   25% {
     opacity: 1; }
-
   50% {
     opacity: 1; }
-
   55% {
     opacity: 0; }
-
   75% {
     opacity: 0; }
-
   100% {
     opacity: 0; } }
-
 #pre-content {
   margin-top: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-bottom: 5px solid #cc4422; }
+  border-bottom: 5px solid #c42; }
 
 #banner {
   width: 100%;
   height: 100%;
   margin-top: 50px;
   position: relative;
-  background-image: -o-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
-  background-image: -moz-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
-  background-image: -webkit-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
-  background-image: -ms-linear-gradient(bottom, #bfbfbf 0%, #4d4d4d 100%);
-  background-image: linear-gradient(to bottom, #bfbfbf 0%, #4d4d4d 100%); }
+  background-image: -o-linear-gradient(bottom, #BFBFBF 0%, #4D4D4D 100%);
+  background-image: -moz-linear-gradient(bottom, #BFBFBF 0%, #4D4D4D 100%);
+  background-image: -webkit-linear-gradient(bottom, #BFBFBF 0%, #4D4D4D 100%);
+  background-image: -ms-linear-gradient(bottom, #BFBFBF 0%, #4D4D4D 100%);
+  background-image: linear-gradient(to bottom, #BFBFBF 0%, #4D4D4D 100%); }
 
 .cover {
   position: absolute;
@@ -329,13 +297,13 @@ br.clear {
     font-size: 4em;
     font-weight: 900;
     background: rgba(0, 0, 0, 0.4);
-    color: white;
+    color: #fff;
     padding: 4%;
     text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5); }
   .cover .desc {
     font-size: 1.5em;
     font-weight: 900;
-    color: white;
+    color: #fff;
     padding: 1% 10% 1% 1%;
     margin-top: 6%;
     text-align: right;
@@ -434,42 +402,42 @@ br.clear {
 #footer {
   margin-top: 50px;
   padding: 10px 100px;
-  background: #444444;
-  color: #eeeeee;
+  background: #444;
+  color: #eee;
   text-align: right; }
   #footer a {
-    color: white; }
+    color: #fff; }
 
 hr.color {
   border: none;
   height: 0;
-  border-bottom: 10px solid black; }
+  border-bottom: 10px solid #000; }
   hr.color.red {
-    border-color: #ff2211; }
+    border-color: #f21; }
   hr.color.orange {
-    border-color: #ffbb44; }
+    border-color: #fb4; }
   hr.color.green {
-    border-color: #99cc44; }
+    border-color: #9c4; }
   hr.color.blue {
-    border-color: #4499cc; }
+    border-color: #49c; }
 
 .white {
-  color: white; }
+  color: #fff; }
 
 .gray {
-  color: #999999; }
+  color: #999; }
 
 .red {
-  color: #ff2211; }
+  color: #f21; }
 
 .orange {
-  color: #ffbb44; }
+  color: #fb4; }
 
 .green {
-  color: #99cc44; }
+  color: #9c4; }
 
 .blue {
-  color: #4499cc; }
+  color: #49c; }
 
 .bonus .checkbox {
   margin-right: 20px; }
@@ -512,3 +480,5 @@ h3.qa .glyphicon {
   .a:before {
     content: "A: ";
     margin-left: -18px; }
+
+/*# sourceMappingURL=index.css.map */
